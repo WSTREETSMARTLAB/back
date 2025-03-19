@@ -23,6 +23,7 @@ services:
       - .env
     volumes:
       - ./core-api:/var/www/html
+      - ./xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini:ro
     depends_on:
       - mysql
       - redis
