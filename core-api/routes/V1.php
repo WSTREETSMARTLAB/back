@@ -16,6 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/health-check', function (Request $request) {
     return response()->json([
-        'message' => 'Server is ready to use'
+        'message' => 'V1 Server is ready to use'
     ], 200);
 });
