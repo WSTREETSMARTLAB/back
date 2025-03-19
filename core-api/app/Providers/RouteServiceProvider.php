@@ -24,11 +24,5 @@ class RouteServiceProvider extends ServiceProvider
                 ->prefix('api/v1')
                 ->group(base_path('routes/V1.php'));
         });
-
-        Route::fallback(function () {
-            return response()->json([
-                'message' => 'Route not found'
-            ], \Symfony\Component\HttpFoundation\Response::HTTP_NOT_FOUND);
-        });
     }
 }
