@@ -22,7 +22,7 @@ class CompanyFactory extends Factory
             'location' => $this->faker->address(),
             'phone' => $this->faker->phoneNumber(),
             'phone_verified_at' => $this->faker->boolean(70) ? now() : null,
-            'tax_id' => $this->faker->optional()->unique()->numerify('########'),
+            'tax_id' => $this->faker->boolean(70) ? $this->faker->unique()->numerify('########') : null,
             'activities' => json_encode($this->faker->randomElements([
                 'agriculture', 'iot', 'hydroponics', 'biotech', 'smart_farming'
             ], $this->faker->numberBetween(1, 3)), JSON_THROW_ON_ERROR),
