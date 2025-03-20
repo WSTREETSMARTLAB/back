@@ -44,10 +44,9 @@ class UserFactory extends Factory
             'facebook' => fake()->url(),
             'twitter' => fake()->url(),
             'linkedin' => fake()->url(),
-            'settings' => [
+            'settings' => json_encode([
                 'allow_public_profile' => $this->faker->boolean(),
-                // etc.
-            ],
+            ], JSON_THROW_ON_ERROR),
             'subscription_plan' => $this->faker->randomElement(['free', 'basic', 'premium']),
             'subscription_expires_at' => now()->addDays($this->faker->numberBetween(1, 365)),
             'remember_token' => Str::random(10),

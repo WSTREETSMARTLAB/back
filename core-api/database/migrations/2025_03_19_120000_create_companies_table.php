@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('linkedin')->nullable();
             $table->string('twitter')->nullable();
             $table->json('settings')->nullable();
-            $table->foreignId('owner_user_id')->constrained('users')->nullOnDelete();
+            $table->unsignedBigInteger('owner_user_id')->constrained('users');
             $table->timestamps();
         });
     }

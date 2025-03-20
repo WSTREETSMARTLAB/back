@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('location');
             $table->string('phone');
             $table->timestamp('phone_verified_at')->nullable();
-            $table->foreignId('company_id')->nullable()->constrained('companies')->nullOnDelete();
+            $table->unsignedBigInteger('company_id')->nullable();
             $table->enum('role', ['admin', 'user'])->default('user');
             $table->boolean('active')->default(false); // true after verification
             $table->timestamp('last_login')->nullable();
