@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\Role;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -23,7 +24,7 @@ class UserSeeder extends Seeder
             'username' => 'admin',
             'email' => 'admin@example.com',
             'password' => Hash::make('password'),
-            'role' => 'admin',
+            'role' => Role::Admin->value,
             'subscription_plan' => 'premium',
             'subscription_expires_at' => now()->addYear(),
             'active' => true,
