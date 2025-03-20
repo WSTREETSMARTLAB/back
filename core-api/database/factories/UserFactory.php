@@ -45,8 +45,7 @@ class UserFactory extends Factory
             'twitter' => fake()->url,
             'linkedin' => fake()->url,
             'settings' => [],
-            'has_subscription' => $this->faker->boolean(30),
-            'subscription_plan' => $this->faker->randomElement(['free', 'basic', 'pro']),
+            'subscription_plan' => $this->faker->randomElement(['free', 'basic', 'premium']),
             'subscription_expires_at' => now()->addDays($this->faker->numberBetween(1, 365)),
             'remember_token' => Str::random(10),
         ];

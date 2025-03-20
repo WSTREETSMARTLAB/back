@@ -33,8 +33,7 @@ return new class extends Migration
             $table->string('twitter')->nullable();
             $table->string('linkedin')->nullable();
             $table->json('settings')->nullable();
-            $table->boolean('has_subscription')->default(false);
-            $table->enum('subscription_plan', ['free', 'basic', 'pro'])->default('free'); // free, basic, pro
+            $table->enum('subscription_plan', ['free', 'basic', 'premium'])->default('free'); // free, basic, pro
             $table->timestamp('subscription_expires_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

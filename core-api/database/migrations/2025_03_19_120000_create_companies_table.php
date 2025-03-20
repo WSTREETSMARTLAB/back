@@ -30,9 +30,6 @@ return new class extends Migration
             $table->string('linkedin')->nullable();
             $table->string('twitter')->nullable();
             $table->json('settings')->nullable();
-            $table->boolean('has_subscription')->default(false);
-            $table->enum('subscription_plan', ['free', 'basic', 'pro'])->default('free');
-            $table->timestamp('subscription_expires_at')->nullable();
             $table->foreignId('owner_user_id')->constrained('users')->nullOnDelete();
             $table->timestamps();
         });

@@ -39,7 +39,9 @@ class User extends Authenticatable
         'instagram',
         'facebook',
         'twitter',
-        'settings'
+        'settings',
+        'subscription_plan',
+        'subscription_expires_at',
     ];
 
     /**
