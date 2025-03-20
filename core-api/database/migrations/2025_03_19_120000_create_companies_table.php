@@ -16,7 +16,21 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('location');
             $table->string('phone');
-            $table->foreignId('owner_user_id')->constrained('users');
+            $table->timestamp('phone_verified_at')->nullable();
+            $table->string('tax_id')->nullable();
+            $table->json('activities')->nullable();
+            $table->string('email')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->boolean('active')->default(false);
+            $table->string('logo')->nullable();
+            $table->text('description')->nullable();
+            $table->string('website')->nullable();
+            $table->string('telegram')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('linkedin')->nullable();
+            $table->string('twitter')->nullable();
+            $table->json('settings')->nullable();
+            $table->foreignId('owner_user_id')->constrained('users')->nullOnDelete();
             $table->timestamps();
         });
     }

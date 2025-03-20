@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -21,9 +22,11 @@ class User extends Authenticatable
         'name',
         'username',
         'email',
+        'email_verified_at',
         'password',
         'location',
         'phone',
+        'phone_verified_at',
         'company_id',
         'role',
         'active',
@@ -63,12 +66,8 @@ class User extends Authenticatable
         'settings' => 'array'
     ];
 
-    /**
-     * Default values for attributes.
-     *
-     * @var array<string, mixed>
-     */
-    protected $attributes = [
-        'settings' => '[]',
-    ];
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class);
+    }
 }
