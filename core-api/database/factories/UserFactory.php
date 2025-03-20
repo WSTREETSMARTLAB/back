@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\Role;
 use App\Models\Company;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -34,7 +35,7 @@ class UserFactory extends Factory
             'phone' => fake()->phoneNumber(),
             'phone_verified_at' => now(),
             'company_id' => $this->faker->boolean(50) ? Company::factory() : null,
-            'role' => 'user',
+            'role' => Role::User->value,
             'active' => true,
             'last_login' => now(),
             'avatar' => fake()->imageUrl(),
