@@ -23,7 +23,19 @@ class User extends Authenticatable
         'email',
         'password',
         'location',
-        'phone'
+        'phone',
+        'company_id',
+        'role',
+        'active',
+        'last_login',
+        'avatar',
+        'bio',
+        'website',
+        'telegram',
+        'linkedin',
+        'instagram',
+        'facebook',
+        'twitter',
     ];
 
     /**
@@ -43,6 +55,9 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'phone_verified_at' => 'datetime',
+        'last_login' => 'datetime',
         'password' => 'hashed',
+        'active' => 'boolean',
     ];
 }

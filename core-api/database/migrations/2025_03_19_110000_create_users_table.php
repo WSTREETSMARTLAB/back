@@ -20,7 +20,18 @@ return new class extends Migration
             $table->string('password');
             $table->string('location');
             $table->string('phone');
-            // $table->foreignId('company_id')
+            $table->timestamp('phone_verified_at')->nullable();
+            $table->foreign('company_id')->references('id')->on('companies')->nullOnDelete();
+            $table->enum('role', ['admin', 'user'])->default('user');
+            $table->boolean('active')->default(false); // true after verification
+            $table->timestamp('last_login')->nullable();
+            $table->string('avatar')->nullable();
+            $table->text('bio')->nullable();
+            $table->string('website')->nullable();
+            $table->string('telegram')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('linkedin')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
