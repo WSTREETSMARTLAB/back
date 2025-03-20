@@ -36,6 +36,7 @@ class User extends Authenticatable
         'instagram',
         'facebook',
         'twitter',
+        'settings'
     ];
 
     /**
@@ -59,5 +60,15 @@ class User extends Authenticatable
         'last_login' => 'datetime',
         'password' => 'hashed',
         'active' => 'boolean',
+        'settings' => 'array'
+    ];
+
+    /**
+     * Default values for attributes.
+     *
+     * @var array<string, mixed>
+     */
+    protected $attributes = [
+        'settings' => '[]',
     ];
 }
