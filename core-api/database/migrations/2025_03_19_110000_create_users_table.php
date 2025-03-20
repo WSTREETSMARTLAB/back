@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('location');
             $table->string('phone');
             $table->timestamp('phone_verified_at')->nullable();
-            $table->unsignedBigInteger('company_id')->nullable();
+            $table->foreignId('company_id')->nullable()->constrained('companies')->nullOnDelete();
             $table->enum('role', ['admin', 'user'])->default('user');
             $table->boolean('active')->default(false); // true after verification
             $table->timestamp('last_login')->nullable();
@@ -33,13 +33,11 @@ return new class extends Migration
             $table->string('twitter')->nullable();
             $table->string('linkedin')->nullable();
             $table->json('settings')->nullable();
+            $table->boolean('has_subscription')->default(false);
+            $table->enum('subscription_plan', ['free', 'basic', 'pro'])->default('free'); // free, basic, pro
+            $table->timestamp('subscription_expires_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
-
-            $table->foreign('company_id')
-                ->references('id')
-                ->on('companies')
-                ->nullOnDelete();
         });
     }
 

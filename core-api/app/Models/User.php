@@ -63,7 +63,9 @@ class User extends Authenticatable
         'last_login' => 'datetime',
         'password' => 'hashed',
         'active' => 'boolean',
-        'settings' => 'array'
+        'settings' => 'array',
+        'has_subscription' => 'boolean',
+        'subscription_expires_at' => 'datetime',
     ];
 
     public function company(): BelongsTo

@@ -37,6 +37,8 @@ class Company extends Model
         'phone_verified_at' => 'datetime',
         'active' => 'boolean',
         'activities' => 'array',
+        'has_subscription' => 'boolean',
+        'subscription_expires_at' => 'datetime',
     ];
 
     public function users(): HasMany
