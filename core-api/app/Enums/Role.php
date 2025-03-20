@@ -12,6 +12,10 @@ enum Role: string
         return match ($this) {
             self::Admin => [
                 Permission::ManageUsers,
+                Permission::ViewUsers,
+                Permission::ManageCompanies,
+                Permission::ViewCompanies,
+                Permission::ViewDashboard,
             ],
             self::User => [
                 Permission::ViewDashboard,
