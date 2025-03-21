@@ -22,7 +22,7 @@ class RegisterProcess
 
         $user->update([
             'verification_code' => $code,
-            'verification_code_expires_at' => now()->addDays(30),
+            'verification_code_expires_at' => now()->addMinutes(10),
         ]);
 
         Mail::to($user->email)->send(new VerificationCodeMail($code, $user->username));
