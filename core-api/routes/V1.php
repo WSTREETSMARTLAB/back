@@ -21,12 +21,6 @@ Route::get('/health-check', function () {
     ], 200);
 });
 
-Route::get('/unauthorized', function () {
-    return response()->json([
-        'message' => 'Unauthorized'
-    ]);
-})->name('login');
-
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
