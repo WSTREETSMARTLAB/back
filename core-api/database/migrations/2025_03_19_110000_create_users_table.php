@@ -16,12 +16,14 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('username')->unique();
             $table->string('email')->unique();
-            $table->string('verification_code')->nullable();
-            $table->timestamp('verification_code_expires_at')->nullable();
+            $table->string('email_verification_code')->nullable();
+            $table->timestamp('email_verification_code_expires_at')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('location')->nullable();
             $table->string('phone')->nullable();
+            $table->string('phone_verification_code')->nullable();
+            $table->timestamp('phone_verification_code_expires_at')->nullable();
             $table->timestamp('phone_verified_at')->nullable();
             $table->unsignedBigInteger('company_id')->nullable();
             $table->enum('role', ['admin', 'user'])->default('user');

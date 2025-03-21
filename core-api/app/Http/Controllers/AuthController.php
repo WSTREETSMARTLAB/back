@@ -19,7 +19,9 @@ class AuthController extends Controller
         $requestData = $request->validated();
         $process->handle($requestData);
 
-        return response()->json([], Response::HTTP_OK);
+        return response()->json([
+            'message' => 'Verification code sent to email',
+        ], Response::HTTP_OK);
     }
 
     public function verify(VerificationRequest $request, VerificationProcess $process): JsonResponse
@@ -27,7 +29,10 @@ class AuthController extends Controller
         $requestData = $request->validated();
         $response = $process->handle($requestData);
 
-        return response()->json($response, Response::HTTP_OK);
+        return response()->json([
+            'message' => 'Verification successful',
+            'data' => $response
+        ], Response::HTTP_OK);
     }
 
     public function login(LoginRequest $request, LoginProcess $process): JsonResponse
