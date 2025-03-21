@@ -15,11 +15,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/health-check', function (Request $request) {
+Route::get('/health-check', function () {
     return response()->json([
         'message' => 'V1 Server is ready to use'
     ], 200);
 });
+
+Route::get('/unauthorized', function () {
+    return response()->json([
+        'message' => 'Unauthorized'
+    ]);
+})->name('login');
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
