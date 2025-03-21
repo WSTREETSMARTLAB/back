@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Processes\Auth\AuthorizeProcess;
+use App\Http\Processes\Auth\AuthorizationProcess;
 use App\Http\Processes\Auth\LoginProcess;
 use App\Http\Processes\Auth\LogoutProcess;
 use App\Http\Processes\Auth\RegisterProcess;
-use App\Http\Requests\AuthRequest;
+use App\Http\Requests\Auth\AuthorizationRequest;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\RegisterRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class AuthController extends Controller
 {
-    public function register(AuthRequest $request, RegisterProcess $process): JsonResponse
+    public function register(RegisterRequest $request, RegisterProcess $process): JsonResponse
     {
         $requestData = $request->validated();
         $response = $process->handle($requestData);
@@ -21,7 +22,7 @@ class AuthController extends Controller
         return response()->json($response, Response::HTTP_OK);
     }
 
-    public function login(AuthRequest $request, LoginProcess $process): JsonResponse
+    public function login(LoginRequest $request, LoginProcess $process): JsonResponse
     {
         $requestData = $request->validated();
         $response = $process->handle($requestData);
@@ -36,9 +37,10 @@ class AuthController extends Controller
         return response()->json($response, Response::HTTP_OK);
     }
 
-    public function authorize(Request $request, AuthorizeProcess $process): JsonResponse
+    public function authorize(AuthorizationRequest $request, AuthorizationProcess $process): JsonResponse
     {
-        $response = $process->handle();
+        $requestData = $request->validated();
+        $response = $process->handle($requestData);
 
         return response()->json($response, Response::HTTP_OK);
     }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Processes\Auth;
 
-class AuthorizeProcess
+class AuthorizationProcess
 {
     public function handle()
     {
-        
+
     }
 }

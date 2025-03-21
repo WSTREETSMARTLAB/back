@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Auth;
 
-class AuthRequest extends BaseFormRequest
+use App\Http\Requests\BaseFormRequest;
+
+class LoginRequest extends BaseFormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -12,8 +14,8 @@ class AuthRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email',
-            'password' => 'required',
+            'email' => 'required|string|email|max:255',
+            'password' => 'required|string|min:6',
         ];
     }
 }
