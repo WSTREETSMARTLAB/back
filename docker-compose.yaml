@@ -50,6 +50,14 @@ services:
     networks:
       - w5smtlab_network
 
+  mailpit:
+    image: axllent/mailpit
+    ports:
+      - 8025:8025
+      - 1025:1025
+    networks:
+      - w5smtlab_network
+
 networks:
   w5smtlab_network:
     driver: bridge

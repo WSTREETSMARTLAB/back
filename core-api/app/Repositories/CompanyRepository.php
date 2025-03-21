@@ -2,7 +2,9 @@
 
 namespace App\Repositories;
 
-class CompanyRepository
-{
+use App\Models\Company;
 
+class CompanyRepository extends Repository
+{
+    protected string $model = Company::class;
 }
