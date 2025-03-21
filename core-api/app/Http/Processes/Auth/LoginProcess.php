@@ -6,6 +6,6 @@ class LoginProcess
 {
     public function handle()
     {
-
+        return 'user login';
     }
 }

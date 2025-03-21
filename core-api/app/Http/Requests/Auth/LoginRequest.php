@@ -14,8 +14,17 @@ class LoginRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|string|email|max:255',
+            'email' => 'required|string|email|max:255|exists:users,email',
             'password' => 'required|string|min:6',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'email.exists' => 'Email already registered',
+            'email.email' => 'Unsupported format email.',
+            'password.min' => 'Password must be at least 6 characters.',
         ];
     }
 }

@@ -6,6 +6,6 @@ class LogoutProcess
 {
     public function handle()
     {
-
+        return 'user logout';
     }
 }
