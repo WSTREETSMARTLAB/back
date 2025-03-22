@@ -28,10 +28,10 @@ class VerificationProcess
             'email_verification_code_expires_at' => null
         ]);
 
-        $token = $user->createToken('API Token')->plainTextToken;
+        $token = $user->createToken('auth_token')->plainTextToken;
 
         return [
-            'access_token' => $token,
+            'auth_token' => $token,
         ];
     }
 }

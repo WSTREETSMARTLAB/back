@@ -52,7 +52,10 @@ class AuthController extends Controller
         $requestData = $request->validated();
         $response = $process->handle($requestData);
 
-        return response()->json($response, Response::HTTP_OK);
+        return response()->json([
+            'message' => 'Login successful',
+            'data' => $response
+        ], Response::HTTP_OK);
     }
 
     public function logout(LogoutProcess $process): JsonResponse
