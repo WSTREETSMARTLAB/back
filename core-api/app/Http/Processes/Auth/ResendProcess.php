@@ -4,9 +4,8 @@ namespace App\Http\Processes\Auth;
 
 use App\Actions\User\SendEmailVerificationCodeAction;
 use App\Repositories\UserRepository;
-use Illuminate\Support\Facades\Hash;
 
-class RegisterProcess
+class ResendProcess
 {
     public function __construct(private UserRepository $userRepository, private SendEmailVerificationCodeAction $sendEmailVerificationCodeAction)
     {
@@ -14,8 +13,7 @@ class RegisterProcess
 
     public function handle(array $data): void
     {
-        $data['password'] = Hash::make($data['password']);
-        $user = $this->userRepository->create($data);
+        $user = $this->userRepository->findBy('email', $data['email']);
 
         $this->sendEmailVerificationCodeAction->handle($user);
     }

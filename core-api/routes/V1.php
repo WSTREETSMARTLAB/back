@@ -20,11 +20,12 @@ Route::get('/health-check', function () {
     ], 200);
 });
 
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/verify', [AuthController::class, 'verify']);
+Route::post('/auth/register', [AuthController::class, 'register']);
+Route::post('/auth/login', [AuthController::class, 'login']);
+Route::post('/auth/verify', [AuthController::class, 'verify']);
+Route::get('/auth/resend-email-verification', [AuthController::class, 'resend']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/logout', [AuthController::class, 'logout']);
+    Route::get('/auth/logout', [AuthController::class, 'logout']);
 });
 
