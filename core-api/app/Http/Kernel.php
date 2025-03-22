@@ -28,10 +28,18 @@ class Kernel extends HttpKernel
      *
      * @var array<string, array<int, class-string|string>>
      */
+//    protected $middlewareGroups = [
+//        'api' => [
+//            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+//            \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
+//            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+//        ],
+//    ];
+
     protected $middlewareGroups = [
         'api' => [
-            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-            \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
+//            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];

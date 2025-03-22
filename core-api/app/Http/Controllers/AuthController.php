@@ -60,8 +60,12 @@ class AuthController extends Controller
 
     public function logout(LogoutProcess $process): JsonResponse
     {
-        $response = $process->handle();
+        $user = auth()->user();
 
-        return response()->json($response, Response::HTTP_OK);
+        $process->handle($user);
+
+        return response()->json([
+            'message' => 'Logout successful',
+        ], Response::HTTP_OK);
     }
 }

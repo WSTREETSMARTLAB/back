@@ -2,10 +2,12 @@
 
 namespace App\Http\Processes\Auth;
 
+use App\Models\User;
+
 class LogoutProcess
 {
-    public function handle()
+    public function handle(User $user): void
     {
-        return 'user logout';
+        $user->tokens()->delete();
     }
 }
