@@ -30,6 +30,21 @@ services:
     networks:
       - w5smtlab_network
 
+  room-stat-service:
+    build:
+      context: ./room-stat-service
+      dockerfile: Dockerfile
+    container_name: w5smtlab-room-stat
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ./room-stat-service:/var/www/html
+    depends_on:
+      - mysql
+    networks:
+      - w5smtlab_network
+
   mysql:
     image: mysql:latest
     container_name: w5smtlab-mysql
