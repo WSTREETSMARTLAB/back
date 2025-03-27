@@ -34,7 +34,7 @@ services:
     build:
       context: ./room-stat-service
       dockerfile: Dockerfile
-    container_name: w5smtlab-room-stat
+    container_name: w5smtlab-room-stat-service
     restart: always
     env_file:
       - .env
