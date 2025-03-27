@@ -1,2 +1,4 @@
 /.env
 .idea/
+
+/room-stat-service/vendor
