@@ -44,6 +44,7 @@ services:
     command: php -S 0.0.0.0:9010 -t public
     volumes:
       - ./room-stat-service:/var/www/html
+      - ./xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini:ro
     depends_on:
       - mysql
     networks:
