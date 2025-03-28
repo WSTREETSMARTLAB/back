@@ -8,6 +8,6 @@ use Symfony\Component\HttpFoundation\Request;
 $app = require __DIR__ . '/../bootstrap/app.php';
 
 $request = Request::createFromGlobals();
-$router = new Router();
+$router = $app['router'];
 $response = $router->dispatch($request);
 $response->send();
