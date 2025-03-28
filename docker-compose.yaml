@@ -7,7 +7,7 @@ services:
       - "8080:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./core-api:/var/www/html
+      - ./core-api:/var/www/core-api
     depends_on:
       - core-api
     networks:
@@ -22,7 +22,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ./core-api:/var/www/html
+      - ./core-api:/var/www/core-api
       - ./xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini:ro
     depends_on:
       - mysql
