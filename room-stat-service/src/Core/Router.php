@@ -2,6 +2,7 @@
 
 namespace App\Core;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -30,7 +31,7 @@ class Router
 
                 $controller = new $controllerClass();
 
-                return $controller->{$methodName}($request);
+                return new JsonResponse($controller->{$methodName}($request));
             }
         }
 
