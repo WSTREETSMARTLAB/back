@@ -32,12 +32,11 @@ class Router
             if ($method === $routeMethod && $path === self::PREFIX . $routePath) {
                 [$controllerName, $methodName] = explode('@', $handler);
 
-                $controllerClass = $this->controllerClass($controllerName);
-                $controller = fn($req) => ((new $controllerClass())->{$methodName}($req));
-
                 $middlewareDispatcher = new Dispatcher($this->middlewareClasses);
                 $processedRequest = $middlewareDispatcher->dispatch($request);
 
+                $controllerClass = $this->controllerClass($controllerName);
+                $controller = fn($req) => ((new $controllerClass())->{$methodName}($req));
                 $response = $controller($processedRequest);
 
                 return $response instanceof Response
