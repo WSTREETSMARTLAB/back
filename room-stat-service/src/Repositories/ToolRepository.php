@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 
-class ToolRepository
+class ToolRepository extends Repository
 {
     public function getByToken(string $token)
     {

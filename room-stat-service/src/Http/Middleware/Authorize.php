@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Core\DependencyAccessor;
 use App\Repositories\ToolRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
@@ -17,9 +18,10 @@ class Authorize
         }
 
         $token = trim(str_replace('Bearer', '', $header));
-        $repository = new ToolRepository();
+        $db = (new DependencyAccessor())->db();
+        $repo = new ToolRepository($db);
 
-        // todo $tool = $repository->getByToken()
+        $tool = $repo->getByToken($token);
 
         return $next($request);
     }
