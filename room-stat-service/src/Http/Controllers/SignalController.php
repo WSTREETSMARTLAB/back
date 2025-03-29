@@ -11,9 +11,15 @@ class SignalController
 {
     public function receive(Request $request)
     {
-        $data = (new SignalValidator(
-            json_decode($request->getContent(), true)
-        ))->validate();
+        $requestData = json_decode($request->getContent(), true);
+
+        $rules = [
+            'temperature' => ['required', 'integer', 'min:-1', 'max:60'],
+            'humidity' => ['required', 'numeric', 'between:0,100'],
+            'light' => ['required', 'numeric', 'between:0,100'],
+        ];
+
+        $data = (new SignalValidator($requestData))->validate($rules);
 
         $signal = new SignalDTO(
             $data['temperature'],
