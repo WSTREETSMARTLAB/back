@@ -7,35 +7,37 @@ use Psr\Log\LoggerInterface;
 
 class DependencyAccessor
 {
-    private Container $container;
+    private static ?Container $container = null;
 
     public function __construct()
     {
-        $this->container = require __DIR__ . '/../../bootstrap/app.php';
+        if (!self::$container) {
+            self::$container = require __DIR__ . '/../../bootstrap/app.php';
+        }
     }
 
     public function container(): Container
     {
-        return $this->container;
+        return self::$container;
     }
 
     public function db(): \PDO
     {
-        return $this->container['db'];
+        return self::$container['db'];
     }
 
     public function logger(): LoggerInterface
     {
-        return $this->container['logger'];
+        return self::$container['logger'];
     }
 
     public function config(): array
     {
-        return $this->container['config'];
+        return self::$container['config'];
     }
 
     public function router(): Router
     {
-        return $this->container['router'];
+        return self::$container['router'];
     }
 }

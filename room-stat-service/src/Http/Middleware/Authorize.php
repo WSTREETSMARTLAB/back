@@ -20,7 +20,6 @@ class Authorize
         $token = trim(str_replace('Bearer', '', $header));
         $db = (new DependencyAccessor())->db();
         $repo = new ToolRepository($db);
-
         $tool = $repo->getByToken($token);
 
         return $next($request);
