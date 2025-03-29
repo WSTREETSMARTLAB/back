@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'host' => env('REDIS_HOST', '127.0.0.1'),
-    'port' => env('REDIS_PORT', 6379),
-    'password' => env('REDIS_PASSWORD', null),
+    'host' => getenv('REDIS_HOST', '127.0.0.1'),
+    'port' => getenv('REDIS_PORT', 6379),
+    'password' => getenv('REDIS_PASSWORD', null),
 ];
