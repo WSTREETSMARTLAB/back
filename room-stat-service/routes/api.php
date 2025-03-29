@@ -2,5 +2,5 @@
 
 
 return [
-    ['POST', '/receive', 'SignalController@receive'],
+    ['POST', '/receive', 'Transmitter@receive'],
 ];

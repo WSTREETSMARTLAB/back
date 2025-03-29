@@ -13,7 +13,7 @@ class Router
     const PREFIX = "/api/v1";
     protected array $routes = [];
     protected array $middlewareClasses = [];
-    protected string $controllerNamespace = 'App\\Http\\Controllers\\';
+    protected string $namespace = 'App\\Http\\Transmitters\\';
 
     public function __construct(Container $container)
     {
@@ -30,14 +30,14 @@ class Router
             [$routeMethod, $routePath, $handler] = $route;
 
             if ($method === $routeMethod && $path === self::PREFIX . $routePath) {
-                [$controllerName, $methodName] = explode('@', $handler);
+                [$class, $method] = explode('@', $handler);
 
                 $middlewareDispatcher = new Dispatcher($this->middlewareClasses);
                 $processedRequest = $middlewareDispatcher->dispatch($request);
 
-                $controllerClass = $this->controllerClass($controllerName);
-                $controller = fn($req) => ((new $controllerClass())->{$methodName}($req));
-                $response = $controller($processedRequest);
+                $class = $this->transmitterClass($class);
+                $transmitter = fn($req) => ((new $class())->{$method}($req));
+                $response = $transmitter($processedRequest);
 
                 return $response instanceof Response
                     ? $response
@@ -48,8 +48,8 @@ class Router
         return new Response('Not Found', Response::HTTP_NOT_FOUND);
     }
 
-    private function controllerClass(string $controllerName): string
+    private function transmitterClass(string $name): string
     {
-        return $this->controllerNamespace . $controllerName;
+        return $this->namespace . $name;
     }
 }

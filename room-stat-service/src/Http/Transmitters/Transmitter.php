@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Transmitters;
 
 use App\DTO\SignalDTO;
 use App\Http\Processes\ReceiveProcess;
 use App\Http\Validators\SignalValidator;
 use Symfony\Component\HttpFoundation\Request;
 
-class SignalController
+class Transmitter
 {
     public function receive(Request $request)
     {
