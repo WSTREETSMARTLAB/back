@@ -5,7 +5,8 @@ use Pimple\Container;
 $container = new Container();
 
 $container['config'] = [
-    'db' => require __DIR__.'/../config/db.php'
+    'db' => require __DIR__.'/../config/db.php',
+    'middleware' => require __DIR__.'/../config/middleware.php',
 ];
 
 $container['logger'] = function () {
@@ -20,8 +21,12 @@ $container['db'] = function ($c) {
     return $pdo;
 };
 
-$container['router'] = function () {
-    return new \App\Core\Router();
+$container['middleware'] = function ($c) {
+    return $c['config']['middleware'];
+};
+
+$container['router'] = function ($c) {
+    return new \App\Core\Router($c);
 };
 
 return $container;
