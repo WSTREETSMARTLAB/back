@@ -1,5 +1,6 @@
 <?php
 
+
 return [
-    ['GET', '/api/v1/health-check', 'SignalController@receive'],
+    ['POST', '/receive', 'SignalController@receive'],
 ];

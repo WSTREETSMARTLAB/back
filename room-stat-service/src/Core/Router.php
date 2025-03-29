@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class Router
 {
+    const PREFIX = "/api/v1";
     protected array $routes = [];
     protected string $controllerNamespace = 'App\\Http\\Controllers\\';
 
@@ -24,7 +25,7 @@ class Router
         foreach ($this->routes as $route) {
             [$routeMethod, $routePath, $handler] = $route;
 
-            if ($method === $routeMethod && $path === $routePath) {
+            if ($method === $routeMethod && $path === self::PREFIX . $routePath) {
                 [$controllerName, $methodName] = explode('@', $handler);
 
                 $controllerClass = $this->controllerNamespace . $controllerName;

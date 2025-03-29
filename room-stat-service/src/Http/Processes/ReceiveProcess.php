@@ -4,7 +4,7 @@ namespace App\Http\Processes;
 
 use App\DTO\SignalDTO;
 
-class ReceiveSignalProcess
+class ReceiveProcess
 {
     public function __construct(SignalDTO $signal)
     {
