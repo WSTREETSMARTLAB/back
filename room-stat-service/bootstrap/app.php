@@ -5,8 +5,9 @@ use Pimple\Container;
 $container = new Container();
 
 $container['config'] = [
-    'db' => require __DIR__.'/../config/db.php',
+    'db' => require __DIR__.'/../config/mysql.php',
     'middleware' => require __DIR__.'/../config/middleware.php',
+    'session' => require __DIR__.'/../config/redis.php',
 ];
 
 $container['logger'] = function () {

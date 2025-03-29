@@ -47,6 +47,7 @@ services:
       - ./xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini:ro
     depends_on:
       - mysql
+      - redis
     networks:
       - w5smtlab_network
     expose:
