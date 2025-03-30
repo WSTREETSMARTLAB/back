@@ -22,6 +22,8 @@ class Authorize
         $repo = new ToolRepository($db);
         $tool = $repo->getByToken($token);
 
+        // set tool info to redis
+
         return $next($request);
     }
 }

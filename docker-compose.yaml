@@ -81,6 +81,24 @@ services:
     networks:
       - w5smtlab_network
 
+  ws-service:
+    build:
+      context: ./ws-service
+      dockerfile: Dockerfile
+    container_name: w5smtlab-ws-service
+    restart: always
+    env_file:
+      - .env
+    command: php public/index.php
+    volumes:
+      - ./ws-service:/var/www/html
+    depends_on:
+      - redis
+    networks:
+      - w5smtlab_network
+    ports:
+      - "8081:8081"
+
 networks:
   w5smtlab_network:
     driver: bridge

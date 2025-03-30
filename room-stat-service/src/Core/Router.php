@@ -41,7 +41,9 @@ class Router
 
                 return $response instanceof Response
                     ? $response
-                    : new JsonResponse($response);
+                    : new JsonResponse([
+                        'data' => $response,
+                    ]);
             }
         }
 
