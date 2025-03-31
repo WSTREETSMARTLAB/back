@@ -2,7 +2,6 @@
 
 namespace App\Http\Validators;
 
-use App\DTO\SignalDTO;
 use Respect\Validation\Validator as v;
 
 
@@ -18,10 +17,10 @@ class SignalValidator
     {
     }
 
-    public function validate(): SignalDTO
+    public function validate(): array
     {
         $signal = $this->signal;
 
-        return new SignalDTO($signal);
+        return $signal;
     }
 }

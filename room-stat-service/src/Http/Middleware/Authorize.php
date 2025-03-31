@@ -18,8 +18,12 @@ class Authorize
         $this->session = (new DependencyAccessor())->session();
     }
 
-    public function handle(Request $request, callable $next): Request
+    public function handle(mixed $request, callable $next): mixed
     {
+        if (!$request instanceof Request) {
+            throw new UnauthorizedHttpException('Request', 'Invalid request parameters.');
+        }
+
         $header = $request->headers->get('Authorization');
 
         if (!$header || !str_starts_with($header, 'Bearer ')) {
