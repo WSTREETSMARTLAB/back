@@ -6,7 +6,7 @@ use App\DTO\SignalDTO;
 
 class ReceiveProcess
 {
-    public function __construct(SignalDTO $signal)
+    public function __construct(private SignalDTO $signal)
     {
     }
 

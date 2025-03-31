@@ -40,4 +40,9 @@ class DependencyAccessor
     {
         return self::$container['router'];
     }
+
+    public function session(): \Redis
+    {
+        return self::$container['session'];
+    }
 }

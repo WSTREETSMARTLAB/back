@@ -9,6 +9,15 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class Authorize
 {
+    private ToolRepository $toolRepository;
+    private \Redis $session;
+
+    public function __construct()
+    {
+        $this->toolRepository = new ToolRepository((new DependencyAccessor())->db());
+        $this->session = (new DependencyAccessor())->session();
+    }
+
     public function handle(Request $request, callable $next): Request
     {
         $header = $request->headers->get('Authorization');
@@ -18,11 +27,10 @@ class Authorize
         }
 
         $token = trim(str_replace('Bearer', '', $header));
-        $db = (new DependencyAccessor())->db();
-        $repo = new ToolRepository($db);
-        $tool = $repo->getByToken($token);
+        $tool = $this->toolRepository->getByToken($token);
 
-        // set tool info to redis
+        $this->session->set('token', $token);
+        $this->session->set('tool', $tool);
 
         return $next($request);
     }

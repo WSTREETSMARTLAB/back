@@ -7,7 +7,7 @@ $container = new Container();
 $container['config'] = [
     'db' => require __DIR__.'/../config/mysql.php',
     'middleware' => require __DIR__.'/../config/middleware.php',
-    'session' => require __DIR__.'/../config/redis.php',
+    'session' => require __DIR__.'/../config/session.php',
 ];
 
 $container['logger'] = function () {
@@ -25,6 +25,21 @@ $container['db'] = function ($c) {
 $container['middleware'] = function ($c) {
     return $c['config']['middleware'];
 };
+
+if ($container['config']['session']['driver'] === 'redis') {
+    $container['session'] = function ($c) {
+        $cfg = $c['config']['session']['redis'];
+        $client = new Redis();
+        $client->connect($cfg['host'], $cfg['port']);
+        $client->select($cfg['db'] ?? 0);
+
+        if (!empty($cfg['password'])) {
+            $client->auth($cfg['password']);
+        }
+
+        return $client;
+    };
+}
 
 $container['router'] = function ($c) {
     return new \App\Core\Router($c);

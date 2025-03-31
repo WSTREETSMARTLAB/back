@@ -7,7 +7,9 @@ RUN apt-get update && apt-get install -y \
     curl \
     && docker-php-ext-install zip pdo pdo_mysql \
     && pecl install xdebug \
-    && docker-php-ext-enable xdebug
+    && docker-php-ext-enable xdebug \
+    && pecl install redis  \
+    && docker-php-ext-enable redis
 
 WORKDIR /var/www/html
 

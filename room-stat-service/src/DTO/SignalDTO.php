@@ -4,11 +4,14 @@ namespace App\DTO;
 
 class SignalDTO
 {
-    public function __construct(
-        public readonly string $temperature,
-        public readonly string $humidity,
-        public readonly string $light
-    )
+    private float $temperature;
+    private int $humidity;
+    private int $light;
+
+    public function __construct(array $data)
     {
+        $this->temperature = $data['temperature'];
+        $this->humidity = $data['humidity'];
+        $this->light = $data['light'];
     }
 }

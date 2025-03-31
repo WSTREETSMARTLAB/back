@@ -2,5 +2,5 @@
 
 
 return [
-    ['POST', '/receive', 'Transmitter@receive'],
+    ['POST', '/transmit', 'Transmitter@transmit'],
 ];

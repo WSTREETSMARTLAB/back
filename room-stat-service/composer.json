@@ -17,7 +17,8 @@
     "monolog/monolog": "^2.9",
     "pimple/pimple": "^3.5",
     "respect/validation": "^2.4",
-    "respect/stringifier": "^0.2.0"
+    "respect/stringifier": "^0.2.0",
+    "ext-redis": "*"
   },
   "autoload": {
     "psr-4": {
