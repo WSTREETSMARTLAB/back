@@ -14,4 +14,19 @@ class SignalDTO
         $this->humidity = $data['humidity'];
         $this->light = $data['light'];
     }
+
+    public function temperature(): float
+    {
+        return $this->temperature;
+    }
+
+    public function humidity(): int
+    {
+        return $this->humidity;
+    }
+
+    public function light(): int
+    {
+        return $this->light;
+    }
 }

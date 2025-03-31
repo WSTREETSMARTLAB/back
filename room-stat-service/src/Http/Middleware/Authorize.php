@@ -31,10 +31,10 @@ class Authorize
         }
 
         $token = trim(str_replace('Bearer', '', $header));
-        $tool = $this->toolRepository->getByToken($token);
+        $tool = $this->toolRepository->getByToken($token)->all();
 
         $this->session->set('token', $token);
-        $this->session->set('tool', $tool);
+        $this->session->set('tool', json_encode($tool));
 
         return $next($request);
     }
