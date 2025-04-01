@@ -8,7 +8,7 @@ use React\EventLoop\Loop;
 use React\Socket\SocketServer;
 
 $loop = Loop::get();
-$server = new SocketServer('0.0.0.0:8081', $loop);
+$server = new SocketServer('0.0.0.0:8081', [], $loop);
 
 $handler = new Handler();
 
@@ -18,10 +18,14 @@ $webSocketServer = new IoServer(
     $loop
 );
 
-$redis = new Redis();
-$redis->connect('w5smtlab-redis', 6379);
+$redisFactory = new \Clue\React\Redis\Factory($loop);
 
-$subscriber = new \App\WebSocket\Subscriber($redis, $handler);
-$loop->addTimer(1, function () use ($subscriber) {
-    return $subscriber->listen();
+$redisFactory->createClient('redis://w5smtlab-redis:6379')->then(function ($client) use ($handler) {
+    $client->psubscribe('sensor:*:signal');
+
+    $client->on('pmessage', function ($pattern, $channel, $message) use ($handler) {
+        $handler->broadcast($channel, $message);
+    });
 });
+
+return $webSocketServer;
