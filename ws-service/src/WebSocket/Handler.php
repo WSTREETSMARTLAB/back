@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\WebSocket;
 
 use Ratchet\MessageComponentInterface;
 
-class WebSocketHandler implements MessageComponentInterface
+class Handler implements MessageComponentInterface
 {
     public function onOpen($conn)
     {
