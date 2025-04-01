@@ -8,7 +8,6 @@ RUN apt-get update && apt-get install -y \
     curl \
     && docker-php-ext-install pdo pdo_mysql \
     && pecl install xdebug \
-    && docker-php-ext-enable xdebug
 
 # Копируем Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
