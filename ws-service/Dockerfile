@@ -1,13 +1,29 @@
 FROM php:8.2-cli
 
+# Установка зависимостей
 RUN apt-get update && apt-get install -y \
-    && docker-php-ext-install pdo pdo_mysql
+    libzip-dev \
+    unzip \
+    git \
+    curl \
+    && docker-php-ext-install pdo pdo_mysql \
+    && pecl install xdebug \
+    && docker-php-ext-enable xdebug
 
+# Копируем Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+# Устанавливаем рабочую директорию
 WORKDIR /var/www/html
-COPY ./ /var/www/html
 
-RUN composer install || true
+# Копируем все файлы проекта
+COPY . .
 
-CMD php index.php
+# Устанавливаем зависимости
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader || true
+
+# Экспонируем порт (если нужно общение через порт, иначе можно убрать)
+EXPOSE 8081
+
+# Точка входа
+CMD ["php", "public/server.php"]

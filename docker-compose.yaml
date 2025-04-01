@@ -89,9 +89,10 @@ services:
     restart: always
     env_file:
       - .env
-    command: php public/index.php
+    command: php public/server.php
     volumes:
       - ./ws-service:/var/www/html
+      - ./xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini:ro
     depends_on:
       - redis
     networks:
