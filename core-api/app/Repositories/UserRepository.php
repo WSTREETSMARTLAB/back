@@ -16,4 +16,9 @@ class UserRepository extends Repository
             'password' => $data['password'],
         ]);
     }
+
+    public function getAuthenticatedUser()
+    {
+        return $this->query()->where('id', auth()->id())->firstOrFail();
+    }
 }

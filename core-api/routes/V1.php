@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,4 +32,7 @@ Route::get('/auth/resend-email-verification', [AuthController::class, 'resend'])
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/auth/logout', [AuthController::class, 'logout']);
+
+    // Users
+    Route::get('/users/me', [UserController::class, 'showMe']);
 });
