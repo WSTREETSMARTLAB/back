@@ -25,7 +25,8 @@ class VerificationProcess
         $user->update([
             'email_verified_at' => now(),
             'email_verification_code' => null,
-            'email_verification_code_expires_at' => null
+            'email_verification_code_expires_at' => null,
+            'active' => true
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;
