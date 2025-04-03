@@ -48,4 +48,9 @@ class Company extends Model
     {
         return $this->belongsTo(User::class, 'owner_user_id');
     }
+
+    public function tools(): HasMany
+    {
+        return $this->hasMany(Tool::class, 'company_id');
+    }
 }
