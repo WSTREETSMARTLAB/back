@@ -2,7 +2,10 @@
 
 namespace App\Http\Processes\Tool;
 
+use App\DTO\Tool\ToolDTO;
+use App\Models\Tool;
 use App\Repositories\ToolRepository;
+use Illuminate\Support\Collection;
 
 class FetchUserRoomStatToolsProcess
 {
@@ -10,8 +13,12 @@ class FetchUserRoomStatToolsProcess
     {
     }
 
-    public function handle(int $id)
+    public function handle(int $id): Collection
     {
-        return $this->repository->getRoomStatToolsByUserId($id);
+        $tools = $this->repository->getRoomStatToolsByUserId($id)
+            ->map(fn (Tool $tool) => (new ToolDTO($tool))
+                ->toArray());
+
+        return $tools;
     }
 }

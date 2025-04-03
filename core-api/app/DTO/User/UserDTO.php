@@ -2,6 +2,7 @@
 
 namespace App\DTO\User;
 
+use App\Models\User;
 
 class UserDTO
 {
@@ -9,19 +10,21 @@ class UserDTO
     private string $username;
     private string $email;
     private string $role;
-    private string $active;
+    private bool $active;
     private ?int $companyId;
     private ?string $avatar;
+    private ?string $subscription;
 
-    public function __construct(private array $data)
+    public function __construct(private User $data)
     {
-        $this->id = $data['id'];
-        $this->username = $data['username'];
-        $this->email = $data['email'];
-        $this->role = $data['role'];
-        $this->active = $data['active'];
-        $this->companyId = $data['company_id'];
-        $this->avatar = $data['avatar'];
+        $this->id = $data->id;
+        $this->username = $data->username;
+        $this->email = $data->email;
+        $this->role = $data->role;
+        $this->active = $data->active;
+        $this->companyId = $data->company_id;
+        $this->avatar = $data->avatar;
+        $this->subscription = $data->subscription_plan;
     }
 
     public function id(): int
@@ -59,6 +62,11 @@ class UserDTO
         return $this->avatar;
     }
 
+    public function subscription(): string
+    {
+        return $this->subscription;
+    }
+
     public function toArray(): array
     {
         return [
@@ -69,6 +77,7 @@ class UserDTO
             'active' => $this->active,
             'company_id' => $this->companyId,
             'avatar' => $this->avatar,
+            'subscription' => $this->subscription,
         ];
     }
 }

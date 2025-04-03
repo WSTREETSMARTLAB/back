@@ -15,6 +15,6 @@ class FetchAuthenticatedUserProcess
     {
         $user = $this->userRepository->getUserById($id);
 
-        return new UserDTO($user->toArray());
+        return new UserDTO($user);
     }
 }
