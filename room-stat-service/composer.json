@@ -1,0 +1,30 @@
+{
+  "name": "vendor_name/room-stat-service",
+  "description": "RoomStat sensor microservice",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "WSTREET SMART LAB",
+      "email": "dmytro_martynov@icloud.com"
+    }
+  ],
+  "require": {
+    "php": "^8.1",
+    "vlucas/phpdotenv": "^5.5",
+    "symfony/http-foundation": "^6.3",
+    "symfony/routing": "^6.3",
+    "symfony/dependency-injection": "^6.3",
+    "monolog/monolog": "^2.9",
+    "pimple/pimple": "^3.5",
+    "respect/validation": "^2.4",
+    "respect/stringifier": "^0.2.0",
+    "ext-redis": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}

@@ -44,21 +44,21 @@ class Handler extends ExceptionHandler
         if ($exception instanceof NotFoundHttpException) {
             return response()->json([
                 'message' => 'Route not found',
-                'error' => 'Not Found',
+                'error' => $exception->getMessage(),
             ], Response::HTTP_NOT_FOUND);
         }
 
         if ($exception instanceof AuthenticationException) {
             return response()->json([
                 'message' => 'Unauthorized',
-                'error' => 'Authentication required',
+                'error' => $exception->getMessage(),,
             ], Response::HTTP_UNAUTHORIZED);
         }
 
         if ($exception instanceof AccessDeniedHttpException) {
             return response()->json([
                 'message' => 'Forbidden',
-                'error' => 'Access denied',
+                'error' => $exception->getMessage(),
             ], Response::HTTP_FORBIDDEN);
         }
 
