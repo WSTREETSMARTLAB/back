@@ -2,7 +2,6 @@
 
 namespace App\DTO\User;
 
-use App\Enums\Role;
 
 class UserDTO
 {

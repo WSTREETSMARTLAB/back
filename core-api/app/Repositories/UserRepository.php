@@ -17,8 +17,8 @@ class UserRepository extends Repository
         ]);
     }
 
-    public function getAuthenticatedUser()
+    public function getUserById(int $id): User
     {
-        return $this->query()->where('id', auth()->id())->firstOrFail();
+        return $this->query()->where('id', $id)->firstOrFail();
     }
 }

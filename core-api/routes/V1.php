@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ToolController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -35,4 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Users
     Route::get('/users/me', [UserController::class, 'showMe']);
+
+    // Tools
+    Route::get('/tools', [ToolController::class, 'showTools']);
 });

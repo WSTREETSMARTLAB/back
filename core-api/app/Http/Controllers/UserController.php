@@ -9,10 +9,10 @@ class UserController extends Controller
 {
     public function showMe(FetchAuthenticatedUserProcess $process)
     {
-        $data = $process->handle();
+        $response = $process->handle(auth()->id());
 
         return response()->json([
-            'data' => $data->toArray()
+            'data' => $response->toArray()
         ], Response::HTTP_OK);
     }
 }

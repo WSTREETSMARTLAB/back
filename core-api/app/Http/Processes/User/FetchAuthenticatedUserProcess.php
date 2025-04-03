@@ -11,9 +11,9 @@ class FetchAuthenticatedUserProcess
     {
     }
 
-    public function handle(): UserDTO
+    public function handle(int $id): UserDTO
     {
-        $user = $this->userRepository->getAuthenticatedUser();
+        $user = $this->userRepository->getUserById($id);
 
         return new UserDTO($user->toArray());
     }
