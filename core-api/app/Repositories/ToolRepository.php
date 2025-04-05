@@ -15,4 +15,21 @@ class ToolRepository extends Repository
             ->where('type', 'room_stat')
             ->get();
     }
+
+    public function createTool(array $data)
+    {
+        return $this->query()->create([
+            'type' => $data['type'],
+            'user_id' => $data['user_id'],
+            'company_id' => $data['company_id'],
+            'is_active' => $data['is_active'],
+            'code' => $data['code'],
+            'activated_at' => $data['activated_at'],
+            'name' => $data['name'],
+            'location_note' => $data['location_note'],
+            'last_online_at' => $data['last_online_at'],
+            'firmware_version' => $data['firmware_version'],
+            'meta' => $data['meta'],
+        ]);
+    }
 }
