@@ -4,11 +4,11 @@ namespace App\DTO;
 
 class ToolDTO
 {
-    private readonly string $id;
-    private readonly string $type;
-    private readonly string $userId;
-    private readonly string $companyId;
-    private readonly string $name;
+    private string $id;
+    private string $type;
+    private int $userId;
+    private ?int $companyId;
+    private ?string $name;
 
     public function __construct(array $data)
     {

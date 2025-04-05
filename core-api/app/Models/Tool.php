@@ -14,7 +14,7 @@ class Tool extends Model
         'type',
         'user_id',
         'company_id',
-        'room_id',
+//        'room_id',
         'is_active',
         'code',
         'activated_at',
