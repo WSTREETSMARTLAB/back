@@ -13,7 +13,7 @@ class ResolveUserToolProcess
     public function handle(int $id, string $type)
     {
         return match ($type) {
-            'room_stat' => $this->fetchUserRoomStatToolsProcess->handle($id),
+            'room-stat' => $this->fetchUserRoomStatToolsProcess->handle($id),
         };
     }
 }

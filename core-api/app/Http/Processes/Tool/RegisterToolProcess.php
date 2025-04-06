@@ -2,7 +2,6 @@
 
 namespace App\Http\Processes\Tool;
 
-use App\DTO\Tool\ToolDTO;
 use App\Repositories\ToolRepository;
 
 class RegisterToolProcess

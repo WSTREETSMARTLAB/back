@@ -21,7 +21,7 @@ class ToolFactory extends Factory
     {
         return [
             'type' => $this->faker->randomElement([
-                'room_stat', // todo create enum
+                'room-stat', // todo create enum
             ]),
             'user_id' => User::factory(),
             'company_id' => fn () => Company::query()->inRandomOrder()->first()?->id,

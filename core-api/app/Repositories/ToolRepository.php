@@ -12,11 +12,11 @@ class ToolRepository extends Repository
     {
         return $this->query()
             ->where('user_id', $id)
-            ->where('type', 'room_stat')
+            ->where('type', 'room-stat')
             ->get();
     }
 
-    public function createTool(array $data)
+    public function createTool(array $data): Tool
     {
         return $this->query()->create([
             'type' => $data['type'],

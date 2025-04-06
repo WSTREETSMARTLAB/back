@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Tool;
 
+use App\Enums\ToolType;
 use App\Http\Requests\BaseFormRequest;
+use Illuminate\Validation\Rule;
 
 class ShowToolsRequest extends BaseFormRequest
 {
@@ -14,7 +16,7 @@ class ShowToolsRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'type' => ['nullable', 'string'],
+            'type' => ['nullable', 'string', Rule::in(ToolType::values())],
         ];
     }
 }
