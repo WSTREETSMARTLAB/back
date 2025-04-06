@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Tool;
 
 use App\Http\Requests\BaseFormRequest;
+use Illuminate\Validation\Rule;
 
 class RegisterToolRequest extends BaseFormRequest
 {
@@ -14,7 +15,10 @@ class RegisterToolRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'type' => 'required|string',
+            'type' => ['required', 'string'],
+            'name' => ['required', 'string', Rule::unique('tools')->where(function ($query) {
+                return $query->where('user_id', auth()->id());
+            })],
         ];
     }
 }
