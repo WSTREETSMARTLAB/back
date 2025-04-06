@@ -31,7 +31,7 @@ Route::post('/auth/login', [AuthController::class, 'login']);
 Route::post('/auth/verify', [AuthController::class, 'verify']);
 Route::get('/auth/resend-email-verification', [AuthController::class, 'resend']);
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')->group(function () { // todo set user role for routes
     Route::get('/auth/logout', [AuthController::class, 'logout']);
 
     // Users
@@ -39,4 +39,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Tools
     Route::get('/tools', [ToolController::class, 'showTools']);
+    Route::post('/tools/register', [ToolController::class, 'registerTool']);
 });

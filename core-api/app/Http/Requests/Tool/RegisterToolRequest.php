@@ -6,7 +6,7 @@ use App\Enums\ToolType;
 use App\Http\Requests\BaseFormRequest;
 use Illuminate\Validation\Rule;
 
-class ShowToolsRequest extends BaseFormRequest
+class RegisterToolRequest extends BaseFormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -16,7 +16,10 @@ class ShowToolsRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'type' => ['nullable', 'string', Rule::in(ToolType::values())],
+            'type' => ['required', 'string', Rule::in(ToolType::values())],
+            'name' => ['required', 'string', Rule::unique('tools')->where(function ($query) {
+                return $query->where('user_id', auth()->id());
+            })],
         ];
     }
 }
