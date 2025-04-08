@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('tools', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->enum('type', \App\Enums\ToolType::values());
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('company_id')->nullable()->constrained()->onDelete('set null');
@@ -20,7 +21,6 @@ return new class extends Migration
             $table->boolean('active')->default(false);
             $table->string('code', 16)->unique();
             $table->timestamp('activated_at')->nullable();
-            $table->string('name')->nullable();
             $table->string('location_note')->nullable();
             $table->timestamp('last_online_at')->nullable();
             $table->string('firmware_version')->nullable();

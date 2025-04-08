@@ -33,6 +33,7 @@ class ToolFactory extends Factory
 
         return [
             'type' => $this->faker->randomElement(['room-stat']),
+            'name' => $this->faker->word,
             'user_id' => User::factory(),
             'company_id' => fn () => Company::query()->inRandomOrder()->first()?->id,
 //          'room_id' => fn () => Room::query()->inRandomOrder()->first()?->id,
@@ -44,7 +45,6 @@ class ToolFactory extends Factory
                 ])
             ),
             'activated_at' => $this->faker->optional()->dateTimeBetween('-1 month', 'now'),
-            'name' => $this->faker->optional()->word,
             'location_note' => $this->faker->optional()->sentence,
             'last_online_at' => $this->faker->optional()->dateTimeBetween('-7 days', 'now'),
             'firmware_version' => $this->faker->optional()->numerify('v#.##'),
