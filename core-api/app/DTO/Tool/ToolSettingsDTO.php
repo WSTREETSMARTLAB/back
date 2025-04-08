@@ -3,6 +3,7 @@
 namespace App\DTO\Tool;
 
 use App\Models\Tool;
+use Illuminate\Support\Collection;
 
 class ToolSettingsDTO
 {
@@ -15,16 +16,16 @@ class ToolSettingsDTO
     private ?string $dayStart;
     private ?string $dayEnd;
 
-    public function __construct(Tool $data)
+    public function __construct(Collection $data)
     {
-        $this->minTemp = $data['settings']['min_temp'] ?? null;
-        $this->maxTemp = $data['settings']['max_temp'] ?? null;
-        $this->minHum = $data['settings']['min_hum'] ?? null;
-        $this->maxHum = $data['settings']['max_hum'] ?? null;
-        $this->lightDayThreshold = $data['settings']['light_day_threshold'] ?? null;
-        $this->lightNightThreshold = $data['settings']['light_night_threshold'] ?? null;
-        $this->dayStart = $data['settings']['day_start'] ?? null;
-        $this->dayEnd = $data['settings']['day_end'] ?? null;
+        $this->minTemp = $data->min_temp ?? null;
+        $this->maxTemp = $data->max_temp ?? null;
+        $this->minHum = $data->min_hum ?? null;
+        $this->maxHum = $data->max_hum ?? null;
+        $this->lightDayThreshold = $data->light_day_threshold ?? null;
+        $this->lightNightThreshold = $data->light_night_threshold ?? null;
+        $this->dayStart = $data->day_start ?? null;
+        $this->dayEnd = $data->day_end ?? null;
     }
 
     public function minTemp(): ?float

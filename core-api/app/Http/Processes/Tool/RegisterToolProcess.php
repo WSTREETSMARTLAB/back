@@ -25,7 +25,7 @@ class RegisterToolProcess
             'location_note' => null,
             'last_online_at' => now(),
             'firmware_version' => 'ARDUINO 2.0', // remove hardcode
-            'meta' => []
+            'settings' => []
         ];
 
         $this->repository->createTool($payload);
