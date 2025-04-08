@@ -44,7 +44,7 @@ class ToolController extends Controller
 
         return response()->json([
             'data' => [
-                'settings' => $data
+                'settings' => $data->toArray()
             ]
         ], Response::HTTP_OK);
     }
@@ -57,7 +57,7 @@ class ToolController extends Controller
 
         return response()->json([
             'data' => [
-                'settings' => $data
+                'settings' => $data->toArray()
             ]
         ], Response::HTTP_OK);
     }

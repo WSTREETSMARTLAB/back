@@ -22,11 +22,11 @@ class ToolRepository extends Repository
         return $this->query()->where('id', $toolId)->where('user_id', $userId)->exists();
     }
 
-    public function getToolSettingsById(int $id): Collection
+    public function getToolSettingsById(int $id): array
     {
         $tool = $this->query()->findOrFail($id);
 
-        return collect($tool->settings);
+        return $tool->settings;
     }
 
     public function createTool(array $data): Tool
@@ -46,7 +46,7 @@ class ToolRepository extends Repository
         ]);
     }
 
-    public function updateToolSetting(int $id, array $data): Collection
+    public function updateToolSetting(int $id, array $data): array
     {
         $tool = $this->query()->findOrFail($id);
 
@@ -64,6 +64,6 @@ class ToolRepository extends Repository
 
         $tool->save();
 
-        return collect($tool->settings);
+        return $tool->settings;
     }
 }
