@@ -26,10 +26,10 @@ class Tool extends Model
     ];
 
     protected $casts = [
-        'is_active' => 'boolean',
+        'active' => 'boolean',
         'activated_at' => 'datetime',
         'last_online_at' => 'datetime',
-        'meta' => 'array',
+        'settings' => 'array',
     ];
 
     public function user(): BelongsTo

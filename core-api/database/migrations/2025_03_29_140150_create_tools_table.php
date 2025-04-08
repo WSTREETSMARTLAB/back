@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('location_note')->nullable();
             $table->timestamp('last_online_at')->nullable();
             $table->string('firmware_version')->nullable();
-            $table->json('settings')->nullable()->default(json_encode([]));
+            $table->json('settings')->nullable();
             $table->timestamps();
         });
     }
