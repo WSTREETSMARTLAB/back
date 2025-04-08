@@ -19,8 +19,9 @@ class TransmitProcess
     {
         $token = $this->session->get('token');
         $tool = json_decode($this->session->get('tool'), true);
+        $settings = $tool['settings'];
 
-        $tool['alarms'] = $this->analyzeSignal($signal);
+        $tool['alarms'] = $this->analyzeSignal($signal, $tool['settings']);
 
         $payload = [
             'sensor_id'   => $tool['id'],
@@ -37,7 +38,7 @@ class TransmitProcess
         $this->session->publish("sensor:{$token}:signal", json_encode($payload));
     }
 
-    private function analyzeSignal(SignalDTO $signal = null): array
+    private function analyzeSignal(SignalDTO $signal, $settings): array
     {
         return [
 
