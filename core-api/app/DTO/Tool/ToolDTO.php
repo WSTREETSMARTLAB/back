@@ -13,7 +13,7 @@ class ToolDTO
     private ?bool $active;
     private ?string $lastOnline;
 
-    public function __construct(private Tool $data)
+    public function __construct(Tool $data)
     {
         $this->id = $data->id;
         $this->name = $data->name;
