@@ -15,7 +15,7 @@ class UserDTO
     private ?string $avatar;
     private ?string $subscription;
 
-    public function __construct(private User $data)
+    public function __construct(User $data)
     {
         $this->id = $data->id;
         $this->username = $data->username;
@@ -47,22 +47,22 @@ class UserDTO
         return $this->role;
     }
 
-    public function active(): string
+    public function active(): bool
     {
         return $this->active;
     }
 
-    public function companyId(): int
+    public function companyId(): ?int
     {
         return $this->companyId;
     }
 
-    public function avatar(): string
+    public function avatar(): ?string
     {
         return $this->avatar;
     }
 
-    public function subscription(): string
+    public function subscription(): ?string
     {
         return $this->subscription;
     }

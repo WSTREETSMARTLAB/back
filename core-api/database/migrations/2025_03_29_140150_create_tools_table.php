@@ -13,18 +13,18 @@ return new class extends Migration
     {
         Schema::create('tools', function (Blueprint $table) {
             $table->id();
-            $table->string('type'); // todo set enum
+            $table->string('name');
+            $table->enum('type', \App\Enums\ToolType::values());
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('company_id')->nullable()->constrained()->onDelete('set null');
 //            $table->foreignId('room_id')->nullable()->constrained()->onDelete('set null');
-            $table->boolean('is_active')->default(false);
-            $table->string('code')->unique();
+            $table->boolean('active')->default(false);
+            $table->string('code', 16)->unique();
             $table->timestamp('activated_at')->nullable();
-            $table->string('name')->nullable();
             $table->string('location_note')->nullable();
             $table->timestamp('last_online_at')->nullable();
             $table->string('firmware_version')->nullable();
-            $table->json('meta')->nullable();
+            $table->json('settings')->nullable();
             $table->timestamps();
         });
     }
