@@ -25,11 +25,11 @@ class TransmitProcess
         (new SignalDeviationAnalyzer($tool))->analyze($signal);
 
         $payload = [
-            'sensor_id'   => $tool['id'],
-            'type'        => $tool['type'],
-            'user_id'     => $tool['user_id'],
-            'company_id'  => $tool['company_id'],
-            'name'        => $tool['name'],
+            'sensor_id'   => $tool->id(),
+            'type'        => $tool->type(),
+            'user_id'     => $tool->userId(),
+            'company_id'  => $tool->companyId(),
+            'name'        => $tool->name(),
             'temperature' => $signal->temperature(),
             'humidity'    => $signal->humidity(),
             'light'       => $signal->light(),

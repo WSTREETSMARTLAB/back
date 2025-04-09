@@ -6,18 +6,18 @@ use App\Enum\Alarm;
 
 class AnalyzeTemperature extends AnalyzeAction
 {
-    public function handle(int $value): void
+    public function handle(float $value): void
     {
         if ($this->settings['min_temp'] !== null && $value < $this->settings['min_temp']) {
-            $this->startAlarm(Alarm::TEMP_LOW->name);
+            $this->startAlarm(Alarm::TEMP_LOW->code(), $value);
         } else {
-            $this->resolveAlarm(Alarm::TEMP_LOW->name);
+            $this->resolveAlarm(Alarm::TEMP_LOW->code());
         }
 
         if ($this->settings['max_temp'] !== null && $value > $this->settings['max_temp']) {
-            $this->startAlarm(Alarm::TEMP_HIGH->name);
+            $this->startAlarm(Alarm::TEMP_HIGH->code(), $value);
         } else {
-            $this->resolveAlarm(Alarm::TEMP_HIGH->name);
+            $this->resolveAlarm(Alarm::TEMP_HIGH->code());
         }
     }
 }
