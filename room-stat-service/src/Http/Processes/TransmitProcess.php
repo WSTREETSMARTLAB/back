@@ -4,6 +4,8 @@ namespace App\Http\Processes;
 
 use App\Core\DependencyAccessor;
 use App\DTO\SignalDTO;
+use App\DTO\ToolDTO;
+use App\Http\Validators\SignalDeviationAnalyzer;
 use App\Repositories\ToolRepository;
 
 class TransmitProcess
@@ -18,9 +20,9 @@ class TransmitProcess
     public function handle(SignalDTO $signal)
     {
         $token = $this->session->get('token');
-        $tool = json_decode($this->session->get('tool'), true);
+        $tool = new ToolDTO(json_decode($this->session->get('tool'), true));
 
-//        $tool['alarms'] = $this->analyzeSignal($signal, $tool['settings']);
+        (new SignalDeviationAnalyzer($tool))->analyze($signal);
 
         $payload = [
             'sensor_id'   => $tool['id'],
@@ -31,9 +33,9 @@ class TransmitProcess
             'temperature' => $signal->temperature(),
             'humidity'    => $signal->humidity(),
             'light'       => $signal->light(),
-            'alarms'      => $tool['alarms'],
         ];
 
         $this->session->publish("sensor:{$token}:signal", json_encode($payload));
+        $this->session->publish("sensor:{$token}:alarms", $this->session->get('alarms'));
     }
 }

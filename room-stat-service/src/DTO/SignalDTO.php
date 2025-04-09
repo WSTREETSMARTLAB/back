@@ -29,4 +29,13 @@ class SignalDTO
     {
         return $this->light;
     }
+
+    public function all(): array
+    {
+        return [
+            'temperature' => $this->temperature(),
+            'humidity' => $this->humidity(),
+            'light' => $this->light(),
+        ];
+    }
 }

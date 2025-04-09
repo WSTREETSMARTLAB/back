@@ -4,11 +4,11 @@ namespace App\DTO;
 
 class ToolDTO
 {
-    private string $id;
+    private int $id;
     private string $type;
+    private string $name;
     private int $userId;
     private ?int $companyId;
-    private ?string $name;
     private ?array $settings;
 
     public function __construct(array $data)
@@ -18,35 +18,44 @@ class ToolDTO
         $this->userId = $data['user_id'];
         $this->companyId = $data['company_id'];
         $this->name = $data['name'];
-        $this->settings = $data['settings'];
+        $this->settings = [
+            'min_temp' => $data['settings']['min_temp'],
+            'max_temp' => $data['settings']['max_temp'],
+            'min_hum' => $data['settings']['min_hum'],
+            'max_hum' => $data['settings']['max_hum'],
+            'light_day_threshold' => $data['settings']['light_day_threshold'],
+            'light_night_threshold' => $data['settings']['light_night_threshold'],
+            'day_start' => $data['settings']['day_start'],
+            'day_end' => $data['settings']['day_end'],
+        ];
     }
 
-    public function id()
+    public function id(): int
     {
         return $this->id;
     }
 
-    public function type()
+    public function type(): string
     {
         return $this->type;
     }
 
-    public function userId()
-    {
-        return $this->userId;
-    }
-
-    public function companyId()
-    {
-        return $this->companyId;
-    }
-
-    public function name()
+    public function name(): string
     {
         return $this->name;
     }
 
-    public function settings()
+    public function userId(): int
+    {
+        return $this->userId;
+    }
+
+    public function companyId(): ?int
+    {
+        return $this->companyId;
+    }
+
+    public function settings(): ?array
     {
         return $this->settings;
     }
@@ -56,9 +65,9 @@ class ToolDTO
         return [
             'id' => $this->id,
             'type' => $this->type,
+            'name' => $this->name,
             'user_id' => $this->userId,
             'company_id' => $this->companyId,
-            'name' => $this->name,
             'settings' => $this->settings,
         ];
     }

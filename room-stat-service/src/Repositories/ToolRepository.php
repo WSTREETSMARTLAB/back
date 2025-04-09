@@ -23,19 +23,4 @@ class ToolRepository extends Repository
 
         return new ToolDTO($res);
     }
-
-    public function getToolSettings(int $toolId, int $userId): ToolDTO
-    {
-        $q = "SELECT settings FROM `tools` WHERE id = :id AND user_id = :user_id AND active = true LIMIT 1";
-        $stmt = $this->db->prepare($q);
-        $stmt->bindParam(':id', $toolId, \PDO::PARAM_INT);
-        $stmt->bindParam(':user_id', $userId, \PDO::PARAM_INT);
-        $res = $stmt->fetch(\PDO::FETCH_ASSOC);
-
-        if (!$res) {
-            // todo throw exception
-        }
-
-        return new ToolDTO(json_decode($res, true));
-    }
 }

@@ -4,9 +4,11 @@ namespace App\Http\Validators;
 
 use App\DTO\SignalDTO;
 use App\DTO\ToolDTO;
+use App\Factories\SignalDeviationAction;
 
 class SignalDeviationAnalyzer
 {
+
     private ?array $settings;
 
     public function __construct(ToolDTO $tool)
@@ -14,9 +16,11 @@ class SignalDeviationAnalyzer
         $this->settings = $tool->settings();
     }
 
-    public function analyze(SignalDTO $signal): array
+    public function analyze(SignalDTO $signal): void
     {
-
-        return [];
+        foreach ($signal->all() as $index => $item) {
+            $factory = SignalDeviationAction::make($index, $this->settings);
+            $factory->handle($item);
+        }
     }
 }
