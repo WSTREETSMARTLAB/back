@@ -19,27 +19,24 @@ class AuthorizeToolProcess
             throw new AuthorizationException("Tool Unauthorized");
         }
 
-        $hashedCode = hash('sha256', $data['code']);
         $toolAccessData = DB::table('tool_access_tokens')
-            ->where('code', $hashedCode)
+            ->where('code', $data['code'])
             ->first();
-
 
         if (!$toolAccessData || now()->gt($toolAccessData->expires_at)) {
             // todo remove old tokens
-            $toolAccessData = $this->createToken($data['code']);
+            $toolAccessData = $this->authorizeTool($data['code']);
         }
 
         return $toolAccessData->token;
     }
 
-    private function createToken(string $code)
+    private function authorizeTool(string $code)
     {
-        $hashedCode = hash('sha256', $code);
         $token = Str::random(64);
 
         $tokenId = DB::table('tool_access_tokens')->insertGetId([
-            'code' => $hashedCode,
+            'code' => $code,
             'token' => $token,
             'issued_at' => now(),
             'expires_at' => now()->addSeconds(self::TOKEN_EXPIRATION_TIME),
