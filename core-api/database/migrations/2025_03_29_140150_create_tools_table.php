@@ -17,7 +17,6 @@ return new class extends Migration
             $table->enum('type', \App\Enums\ToolType::values());
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('company_id')->nullable()->constrained()->onDelete('set null');
-//            $table->foreignId('room_id')->nullable()->constrained()->onDelete('set null');
             $table->boolean('active')->default(false);
             $table->string('code', 16)->unique();
             $table->timestamp('activated_at')->nullable();

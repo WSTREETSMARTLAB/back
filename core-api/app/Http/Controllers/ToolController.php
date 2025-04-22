@@ -2,23 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Processes\Tool\AuthorizeToolProcess;
 use App\Http\Processes\Tool\GetToolSettingsProcess;
 use App\Http\Processes\Tool\RegisterToolProcess;
 use App\Http\Processes\Tool\ResolveUserToolProcess;
 use App\Http\Processes\Tool\SetToolSettingsProcess;
+use App\Http\Requests\AuthorizeToolRequest;
 use App\Http\Requests\Tool\RegisterToolRequest;
-use App\Http\Requests\Tool\ShowToolsRequest;
+use App\Http\Requests\Tool\MyToolsRequest;
 use App\Http\Requests\Tool\ToolSettingsRequest;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ToolController extends Controller
 {
-    public function showTools(ShowToolsRequest $request, ResolveUserToolProcess $process): JsonResponse
+    public function myTools(MyToolsRequest $request, ResolveUserToolProcess $process): JsonResponse
     {
         $requestData = $request->validated();
 
-        $response = $process->handle(auth()->id(), $requestData['type']);
+        $response = $process->handle(auth()->id(), $requestData['type'] ?? "");
 
         return response()->json([
             'data' => $response,
@@ -29,12 +31,21 @@ class ToolController extends Controller
     {
         $requestData = $request->validated();
 
-        $response = $process->handle(auth()->id(), $requestData);
+        $process->handle(auth()->id(), $requestData);
+
+        return response()->json([], Response::HTTP_OK);
+    }
+
+    public function authorizeTool(AuthorizeToolRequest $request, AuthorizeToolProcess $process): JsonResponse
+    {
+        $requestData = $request->validated();
+
+        $response = $process->handle($requestData);
 
         return response()->json([
             'data' => [
-                'code' => $response,
-            ],
+                'token' => $response
+            ]
         ], Response::HTTP_OK);
     }
 

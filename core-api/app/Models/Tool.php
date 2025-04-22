@@ -14,7 +14,6 @@ class Tool extends Model
         'type',
         'user_id',
         'company_id',
-//        'room_id',
         'active',
         'code',
         'activated_at',
@@ -41,9 +40,4 @@ class Tool extends Model
     {
         return $this->belongsTo(Company::class);
     }
-
-//    public function room(): BelongsTo
-//    {
-//        return $this->belongsTo(Room::class);
-//    }
 }

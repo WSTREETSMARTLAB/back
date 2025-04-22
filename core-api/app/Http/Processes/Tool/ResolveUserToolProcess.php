@@ -10,10 +10,14 @@ class ResolveUserToolProcess
     {
     }
 
-    public function handle(int $id, string $type)
+    public function handle(int $id, string $type = "")
     {
-        return match ($type) {
-            'room-stat' => $this->fetchUserRoomStatToolsProcess->handle($id),
-        };
+//        if ($type) {
+//            return match ($type) {
+//                'room-stat' => $this->fetchUserRoomStatToolsProcess->handle($id),
+//            };
+//        }
+
+        return $this->fetchUserRoomStatToolsProcess->handle($id);
     }
 }
