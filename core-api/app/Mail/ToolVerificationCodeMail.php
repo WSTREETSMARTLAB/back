@@ -9,24 +9,24 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class EmailVerificationCodeMail extends Mailable
+class ToolVerificationCodeMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(private string $code, private string $username)
+    public function __construct(private string $code)
     {
+        //
     }
 
     public function build(): self
     {
         return $this
-            ->subject('Welcome to WSTREET SMART LAB')
-            ->view('emails.email-verification-code')
+            ->subject('Tool Verification Code')
+            ->view('emails.tool-verification-code')
             ->with([
-                'username' => $this->username,
                 'code' => $this->code,
             ]);
     }

@@ -2,15 +2,16 @@
 
 namespace App\Http\Processes\Tool;
 
+use App\Actions\Tool\SendToolVerificationCodeEmailAction;
 use App\Repositories\ToolRepository;
 
 class RegisterToolProcess
 {
-    public function __construct(private ToolRepository $repository)
+    public function __construct(private ToolRepository $repository, private SendToolVerificationCodeEmailAction $sendToolVerificationCodeAction)
     {
     }
 
-    public function handle(int $id, array $data): string
+    public function handle(int $id, array $data): void
     {
         $code = $this->generateSafeCode();
 
@@ -30,7 +31,7 @@ class RegisterToolProcess
 
         $this->repository->createTool($payload);
 
-        return $code;
+        $this->sendToolVerificationCodeAction->handle($code);
     }
 
     private function generateSafeCode(): string

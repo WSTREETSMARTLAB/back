@@ -31,13 +31,9 @@ class ToolController extends Controller
     {
         $requestData = $request->validated();
 
-        $response = $process->handle(auth()->id(), $requestData);
+        $process->handle(auth()->id(), $requestData);
 
-        return response()->json([
-            'data' => [
-                'code' => $response,
-            ],
-        ], Response::HTTP_OK);
+        return response()->json([], Response::HTTP_OK);
     }
 
     public function authorizeTool(AuthorizeToolRequest $request, AuthorizeToolProcess $process): JsonResponse
