@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Processes\Tool\AuthorizeToolProcess;
 use App\Http\Processes\Tool\GetToolSettingsProcess;
 use App\Http\Processes\Tool\RegisterToolProcess;
 use App\Http\Processes\Tool\ResolveUserToolProcess;
 use App\Http\Processes\Tool\SetToolSettingsProcess;
+use App\Http\Requests\AuthorizeToolRequest;
 use App\Http\Requests\Tool\RegisterToolRequest;
 use App\Http\Requests\Tool\MyToolsRequest;
 use App\Http\Requests\Tool\ToolSettingsRequest;
@@ -35,6 +37,19 @@ class ToolController extends Controller
             'data' => [
                 'code' => $response,
             ],
+        ], Response::HTTP_OK);
+    }
+
+    public function authorizeTool(AuthorizeToolRequest $request, AuthorizeToolProcess $process): JsonResponse
+    {
+        $requestData = $request->validated();
+
+        $response = $process->handle($requestData);
+
+        return response()->json([
+            'data' => [
+                'token' => $response
+            ]
         ], Response::HTTP_OK);
     }
 
