@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class AuthorizeToolProcess
 {
-    private const TOKEN_EXPIRATION_TIME = 60 * 60 * 24;
+    private const TOKEN_EXPIRATION_TIME = 3600 * 24 * 30;
 
     public function handle(array $data)
     {
