@@ -59,7 +59,6 @@ class ToolDTO
             'id' => $this->id,
             'name' => $this->name,
             'type' => $this->type,
-            'code' => $this->code,
             'active' => $this->active,
             'last_online_at' => $this->lastOnline,
         ];

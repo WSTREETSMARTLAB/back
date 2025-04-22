@@ -6,7 +6,7 @@ use App\Enums\ToolType;
 use App\Http\Requests\BaseFormRequest;
 use Illuminate\Validation\Rule;
 
-class ShowToolsRequest extends BaseFormRequest
+class MyToolsRequest extends BaseFormRequest
 {
     /**
      * Get the validation rules that apply to the request.

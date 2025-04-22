@@ -7,18 +7,18 @@ use App\Http\Processes\Tool\RegisterToolProcess;
 use App\Http\Processes\Tool\ResolveUserToolProcess;
 use App\Http\Processes\Tool\SetToolSettingsProcess;
 use App\Http\Requests\Tool\RegisterToolRequest;
-use App\Http\Requests\Tool\ShowToolsRequest;
+use App\Http\Requests\Tool\MyToolsRequest;
 use App\Http\Requests\Tool\ToolSettingsRequest;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ToolController extends Controller
 {
-    public function showTools(ShowToolsRequest $request, ResolveUserToolProcess $process): JsonResponse
+    public function myTools(MyToolsRequest $request, ResolveUserToolProcess $process): JsonResponse
     {
         $requestData = $request->validated();
 
-        $response = $process->handle(auth()->id(), $requestData['type']);
+        $response = $process->handle(auth()->id(), $requestData['type'] ?? "");
 
         return response()->json([
             'data' => $response,
