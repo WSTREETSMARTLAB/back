@@ -14,9 +14,6 @@ class RegisterToolProcess
     {
         $code = $this->generateSafeCode();
 
-        // hash code
-        // create token
-
         $payload = [
             'type' => $data['type'],
             'user_id' => $id,
