@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Processes\Tool\AuthorizeToolProcess;
 use App\Http\Processes\Tool\GetToolSettingsProcess;
+use App\Http\Processes\Tool\MyToolsProcess;
 use App\Http\Processes\Tool\RegisterToolProcess;
 use App\Http\Processes\Tool\ResolveUserToolProcess;
 use App\Http\Processes\Tool\SetToolSettingsProcess;
@@ -16,11 +17,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ToolController extends Controller
 {
-    public function myTools(MyToolsRequest $request, ResolveUserToolProcess $process): JsonResponse
+    public function myTools(MyToolsProcess $process): JsonResponse
     {
-        $requestData = $request->validated();
-
-        $response = $process->handle(auth()->id(), $requestData['type'] ?? "");
+        $response = $process->handle(auth()->id());
 
         return response()->json([
             'data' => $response,

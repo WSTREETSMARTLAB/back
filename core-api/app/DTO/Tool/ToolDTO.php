@@ -7,9 +7,9 @@ use App\Models\Tool;
 class ToolDTO
 {
     private int $id;
-    private ?string $name;
+    private string $name;
     private string $type;
-    private string $code;
+    private ?string $code;
     private ?bool $active;
     private ?string $lastOnline;
 
@@ -20,7 +20,7 @@ class ToolDTO
         $this->type = $data->type;
         $this->code = $data->code;
         $this->active = $data->active;
-        $this->lastOnline = $data->lastOnline;
+        $this->lastOnline = $data->last_online_at;
     }
 
     public function id(): int
@@ -38,17 +38,17 @@ class ToolDTO
         return $this->type;
     }
 
-    public function code(): string
+    public function code(): ?string
     {
         return $this->code;
     }
 
-    public function active(): bool
+    public function active(): ?bool
     {
         return $this->active;
     }
 
-    public function lastOnline(): string
+    public function lastOnline(): ?string
     {
         return $this->lastOnline;
     }
@@ -59,6 +59,7 @@ class ToolDTO
             'id' => $this->id,
             'name' => $this->name,
             'type' => $this->type,
+            'code' => $this->code,
             'active' => $this->active,
             'last_online_at' => $this->lastOnline,
         ];
