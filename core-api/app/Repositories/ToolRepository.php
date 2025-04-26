@@ -9,12 +9,16 @@ class ToolRepository extends Repository
 {
     protected string $model = Tool::class;
 
-    public function getRoomStatToolsByUserId(int $id)
+    public function getToolsByUserId(int $id): Collection
     {
         return $this->query()
             ->where('user_id', $id)
-            ->where('type', 'room-stat')
             ->get();
+    }
+
+    public function getToolByUserId(int $userId, int $toolId): Tool
+    {
+        return $this->query()->where('user_id', $userId)->findOrFail($toolId);
     }
 
     public function userIsOwner(int $toolId, int $userId): bool
