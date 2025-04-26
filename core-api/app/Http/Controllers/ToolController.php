@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Processes\Tool\AuthorizeToolProcess;
+use App\Http\Processes\Tool\GetToolPreferencesProcess;
 use App\Http\Processes\Tool\GetToolSettingsProcess;
 use App\Http\Processes\Tool\MyToolsProcess;
 use App\Http\Processes\Tool\RegisterToolProcess;
@@ -29,8 +30,9 @@ class ToolController extends Controller
     public function registerTool(RegisterToolRequest $request, RegisterToolProcess $process): JsonResponse
     {
         $requestData = $request->validated();
+        $userId = auth()->user()->id;
 
-        $process->handle(auth()->id(), $requestData);
+        $process->handle($userId, $requestData);
 
         return response()->json([], Response::HTTP_OK);
     }
@@ -48,7 +50,20 @@ class ToolController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function showToolSettings(int $id, GetToolSettingsProcess $process): JsonResponse
+    public function getPreferences(int $id, GetToolPreferencesProcess $process): JsonResponse
+    {
+        $userId = auth()->user()->id;
+
+        $response = $process->handle($userId, $id);
+
+        return response()->json([
+            'data' => [
+                'preferences' => $response->toArray()
+            ]
+        ], Response::HTTP_OK);
+    }
+
+    public function getSettings(int $id, GetToolSettingsProcess $process): JsonResponse
     {
         $data = $process->handle($id, auth()->id());
 
@@ -59,7 +74,7 @@ class ToolController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function updateToolSettings(int $id, ToolSettingsRequest $request, SetToolSettingsProcess $process): JsonResponse
+    public function setSettings(int $id, ToolSettingsRequest $request, SetToolSettingsProcess $process): JsonResponse
     {
         $requestData = $request->validated();
 

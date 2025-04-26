@@ -15,7 +15,7 @@ class MyToolsProcess
 
     public function handle(int $id): Collection
     {
-        $tools = $this->repository->getRoomStatToolsByUserId($id)
+        $tools = $this->repository->getToolsByUserId($id)
             ->map(function (Tool $tool){
                 $toolDTO = new ToolDTO($tool);
 
