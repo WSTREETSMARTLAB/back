@@ -22,7 +22,7 @@ class SignalValidator
                 v::notBlank(),
                 v::numericVal(),
                 v::min(0),
-                v::max(60),
+                v::max(95),
             ],
             'light' => [
                 v::notBlank(),

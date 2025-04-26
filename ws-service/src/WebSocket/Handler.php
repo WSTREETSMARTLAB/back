@@ -24,7 +24,11 @@ class Handler implements MessageComponentInterface
         $data = json_decode($msg, true);
 
         if (isset($data['action']) && $data['action'] === 'subscribe') {
-            $channel = "sensor:{$data['token']}:signal";
+            if (!isset($data['channel'])) {
+                return;
+            }
+
+            $channel = $data['channel'];
             $this->subscribe($from, $channel);
             return;
         }

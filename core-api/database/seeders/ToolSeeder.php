@@ -25,7 +25,13 @@ class ToolSeeder extends Seeder
         Tool::factory()->count(5)->create([
             'user_id' => User::inRandomOrder()->first()->id,
             'company_id' => null,
-//            'room_id' => null,
+        ]);
+
+        $adminUser = User::query()->where('email', 'lab@wstreet.com')->first();
+
+        Tool::factory()->count(3)->create([
+            'user_id' => $adminUser->id,
+            'active' => true
         ]);
     }
 }
