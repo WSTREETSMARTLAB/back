@@ -27,16 +27,21 @@ class AnalyzeAction
     protected function startAlarm(string $alarm, float $value): void
     {
         $key = $this->alarmKey($alarm);
+        $this->session->del($key);
 
         if (!$this->session->exists($key)) {
             $alarmId = $this->alarmRepository->registerAlarmStart($this->toolId, [
                 'value' => $value,
                 'type' => $alarm,
             ]);
+
             $this->session->set($key, json_encode([
+                'id' => $alarmId,
+                'type' => $alarm,
+                'value' => $value,
                 'time' => (new \DateTime())->format('Y-m-d H:i:s'),
-                'id' => $alarmId
             ]));
+
             $this->session->expire($key, 86400);
         }
     }
