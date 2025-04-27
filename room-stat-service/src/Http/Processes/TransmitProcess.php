@@ -24,15 +24,22 @@ class TransmitProcess
 
         (new SignalDeviationAnalyzer($tool))->analyze($signal);
 
+        $alarmKeys = $this->session->keys("alarms:tool:{$tool->id()}:*");
+        $alarmValues = $this->session->mget($alarmKeys);
+        foreach ($alarmValues as &$value) {
+            $value = json_decode($value, true);
+        }
+        unset($value);
+
         $signal = [
-            'temperature' => $signal->temperature(),
-            'humidity'    => $signal->humidity(),
-            'light'       => $signal->light(),
+            'params' => [
+                'temperature' => $signal->temperature(),
+                'humidity'    => $signal->humidity(),
+                'light'       => $signal->light(),
+            ],
+            'alarms' => $alarmValues
         ];
 
-        $alarms = $this->session->get('alarms');
-
         $this->session->publish("sensor:{$token}:signal", json_encode($signal));
-        $this->session->publish("sensor:{$token}:alarms", $alarms);
     }
 }
