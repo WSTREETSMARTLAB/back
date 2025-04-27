@@ -38,7 +38,6 @@ class AnalyzeAction
             $this->session->set($key, json_encode([
                 'id' => $alarmId,
                 'type' => $alarm,
-                'value' => $value,
                 'time' => (new \DateTime())->format('Y-m-d H:i:s'),
             ]));
 
