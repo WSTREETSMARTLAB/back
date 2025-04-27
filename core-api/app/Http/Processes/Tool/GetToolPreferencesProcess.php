@@ -2,8 +2,8 @@
 
 namespace App\Http\Processes\Tool;
 
-use App\DTO\Tool\ToolDTO;
 use App\Repositories\ToolRepository;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class GetToolPreferencesProcess
@@ -12,14 +12,19 @@ class GetToolPreferencesProcess
     {
     }
 
-    public function handle(int $userId, int $toolId): ToolDTO
+    public function handle(int $userId, int $toolId): array
     {
         if (!$this->repository->userIsOwner($toolId, $userId)) {
             throw new AccessDeniedHttpException();
         }
 
         $tool = $this->repository->getToolByUserId($userId, $toolId);
+        $toolAccessData = DB::table('tool_access_tokens')->where('code', $tool->code)->first();
 
-        return new ToolDTO($tool);
+        return [
+            'name' => $tool->name,
+            'type' => $tool->type,
+            'token' => $toolAccessData->token,
+        ];
     }
 }
