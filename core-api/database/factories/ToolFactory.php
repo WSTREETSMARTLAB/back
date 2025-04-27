@@ -36,7 +36,6 @@ class ToolFactory extends Factory
             'name' => $this->faker->word,
             'user_id' => User::factory(),
             'company_id' => fn () => Company::query()->inRandomOrder()->first()?->id,
-//          'room_id' => fn () => Room::query()->inRandomOrder()->first()?->id,
             'active' => $this->faker->boolean(70),
             'code' => strtoupper(
                 implode('-', [

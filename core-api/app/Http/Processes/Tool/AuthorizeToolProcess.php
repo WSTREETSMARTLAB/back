@@ -19,23 +19,17 @@ class AuthorizeToolProcess
             throw new AuthorizationException("Tool Unauthorized");
         }
 
-        $toolAccessData = DB::table('tool_access_tokens')
-            ->where('code', $data['code'])
-            ->first();
+        $token = $this->authorizeTool($data['code']);
 
-        if (!$toolAccessData || now()->gt($toolAccessData->expires_at)) {
-            // todo remove old tokens
-            $toolAccessData = $this->authorizeTool($data['code']);
-        }
-
-        return $toolAccessData->token;
+        return $token;
     }
 
-    private function authorizeTool(string $code)
+    private function authorizeTool(string $code): string
     {
         $token = Str::random(64);
+        $query = DB::table('tool_access_tokens');
 
-        $tokenId = DB::table('tool_access_tokens')->insertGetId([
+        $data = [
             'code' => $code,
             'token' => $token,
             'issued_at' => now(),
@@ -43,10 +37,21 @@ class AuthorizeToolProcess
             'ip_address' => request()->ip(),
             'created_at' => now(),
             'updated_at' => now(),
-        ]);
+        ];
 
+        if (!$this->exists($code)) {
+            $query->insert($data);
+        } else {
+            $query->update($data);
+        }
+
+        return $token;
+    }
+
+    private function exists(string $code): bool
+    {
         return DB::table('tool_access_tokens')
-            ->where('id', $tokenId)
-            ->first();
+            ->where('code', $code)
+            ->exists();
     }
 }

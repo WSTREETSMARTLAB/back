@@ -58,7 +58,7 @@ class ToolController extends Controller
 
         return response()->json([
             'data' => [
-                'preferences' => $response->toArray()
+                'preferences' => $response
             ]
         ], Response::HTTP_OK);
     }

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('tool_access_tokens', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
-            $table->text('token');
+            $table->string('code')->unique();
+            $table->string('token');
             $table->timestamp('issued_at');
             $table->timestamp('expires_at')->nullable();
             $table->timestamp('last_used_at')->nullable();
