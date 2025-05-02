@@ -33,9 +33,9 @@ class TransmitProcess
 
         $signal = [
             'params' => [
-                'temperature' => $signal->temperature(),
-                'humidity'    => $signal->humidity(),
-                'light'       => $signal->light(),
+                'temperature' => round($signal->temperature(), 1),
+                'humidity'    => round($signal->humidity(), 1),
+                'light'       => round($signal->light(), 1),
             ],
             'alarms' => $alarmValues
         ];

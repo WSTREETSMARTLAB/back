@@ -20,7 +20,7 @@ class SignalValidator
             ],
             'humidity' => [
                 v::notBlank(),
-                v::numericVal(),
+                v::floatVal(),
                 v::min(0),
                 v::max(95),
             ],
