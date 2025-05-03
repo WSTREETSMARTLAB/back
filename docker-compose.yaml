@@ -66,6 +66,22 @@ services:
     networks:
       - w5smtlab_network
 
+  mysql-test:
+    image: mysql:latest
+    container_name: w5smtlab-mysql-test
+    restart: always
+    ports:
+      - "3308:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: w5smtlab_test
+      MYSQL_USER: test_user
+      MYSQL_PASSWORD: test_pass
+    volumes:
+      - mysql_test_data:/var/lib/mysql
+    networks:
+      - w5smtlab_network
+
   redis:
     image: redis:latest
     container_name: w5smtlab-redis
@@ -106,3 +122,4 @@ networks:
 
 volumes:
   mysql_data:
+  mysql_test_data:
