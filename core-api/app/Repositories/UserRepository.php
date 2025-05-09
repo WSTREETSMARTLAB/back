@@ -24,6 +24,26 @@ class UserRepository extends Repository
 
     public function usernameExists(string $username): bool
     {
-        return User::where('username', $username)->exists();
+        return $this->query()->where('username', $username)->exists();
+    }
+
+    public function updatePreferences(int $id, array $data): User
+    {
+        $user = $this->getUserById($id);
+
+        $user->update([
+            'username' => $data['username'],
+            'email' => $data['email'],
+            'avatar' => $data['avatar'] ?? null,
+        ]);
+
+        return $user->fresh();
+    }
+
+    public function deleteAccount(int $id): bool
+    {
+        $user = $this->getUserById($id);
+
+        return $user->delete();
     }
 }
