@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\User;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
 class UpdateAccountPreferencesRequest extends BaseFormRequest
 {
@@ -16,6 +16,7 @@ class UpdateAccountPreferencesRequest extends BaseFormRequest
         return [
             'username' => 'required|string|min:2|max:24',
             'email' => 'required|string|email',
+            'avatar' => 'nullable|string'
         ];
     }
 }

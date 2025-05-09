@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Processes\User\DeleteAccountProcess;
 use App\Http\Processes\User\FetchAuthenticatedUserProcess;
 use App\Http\Processes\User\UpdateAccountProcess;
-use App\Http\Requests\UpdateAccountPreferencesRequest;
+use App\Http\Requests\User\UpdateAccountPreferencesRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
