@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Processes\User\DeleteAccountProcess;
 use App\Http\Processes\User\FetchAuthenticatedUserProcess;
 use App\Http\Processes\User\UpdateAccountProcess;
+use App\Http\Requests\UpdateAccountPreferencesRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
@@ -19,21 +20,24 @@ class UserController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function updateMyAccount(UpdateAccountProcess $process): JsonResponse
+    public function updateMyAccount(UpdateAccountPreferencesRequest $request, UpdateAccountProcess $process): JsonResponse
     {
-        $response = $process->handle(auth()->id());
+        $requestData = $request->validated();
+
+        $response = $process->handle(auth()->id(), $requestData);
 
         return response()->json([
-            'data' => $response
+            'data' => $response->toArray()
         ], Response::HTTP_OK);
     }
 
     public function deleteMyAccount(DeleteAccountProcess $process): JsonResponse
     {
-        $response = $process->handle(auth()->id());
+        $id = auth()->id();
+        $response = $process->handle($id);
 
         return response()->json([
-            'data' => $response
+            'data' => $response ? "Account {$id} deleted" : "Account {$id} delete error"
         ], Response::HTTP_OK);
     }
 }
