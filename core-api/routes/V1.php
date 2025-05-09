@@ -38,6 +38,8 @@ Route::middleware('auth:sanctum')->group(function () { // todo set user role for
 
     // Users
     Route::get('/users/me', [UserController::class, 'showMe']);
+    Route::put('/users/account', [UserController::class, 'updateMyAccount']);
+    Route::delete('/users/account', [UserController::class, 'deleteMyAccount']);
 
     // Tools
     Route::get('/tools/my', [ToolController::class, 'myTools']);

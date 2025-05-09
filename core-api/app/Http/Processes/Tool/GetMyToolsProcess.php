@@ -7,7 +7,7 @@ use App\Models\Tool;
 use App\Repositories\ToolRepository;
 use Illuminate\Support\Collection;
 
-class MyToolsProcess
+class GetMyToolsProcess
 {
     public function __construct(private ToolRepository $repository)
     {

@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Tool;
+namespace App\Http\Requests;
 
-use App\Enums\ToolType;
-use App\Http\Requests\BaseFormRequest;
-use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Http\FormRequest;
 
-class MyToolsRequest extends BaseFormRequest
+class UpdateAccountPreferencesRequest extends BaseFormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -16,7 +14,8 @@ class MyToolsRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'type' => ['nullable', 'string', Rule::in(ToolType::values())],
+            'username' => 'required|string|min:2|max:24',
+            'email' => 'required|string|email',
         ];
     }
 }
