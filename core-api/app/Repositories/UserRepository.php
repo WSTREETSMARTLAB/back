@@ -21,4 +21,9 @@ class UserRepository extends Repository
     {
         return $this->query()->where('id', $id)->firstOrFail();
     }
+
+    public function usernameExists(string $username): bool
+    {
+        return User::where('username', $username)->exists();
+    }
 }
