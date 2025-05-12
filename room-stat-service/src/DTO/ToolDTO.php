@@ -18,16 +18,18 @@ class ToolDTO
         $this->userId = $data['user_id'];
         $this->companyId = $data['company_id'];
         $this->name = $data['name'];
-        $this->settings = [
-            'min_temp' => $data['settings']['min_temp'],
-            'max_temp' => $data['settings']['max_temp'],
-            'min_hum' => $data['settings']['min_hum'],
-            'max_hum' => $data['settings']['max_hum'],
-            'light_day_threshold' => $data['settings']['light_day_threshold'],
-            'light_night_threshold' => $data['settings']['light_night_threshold'],
-            'day_start' => $data['settings']['day_start'],
-            'day_end' => $data['settings']['day_end'],
-        ];
+        $this->settings = $data['settings'] ? [
+            'min_temp' => $data['settings']['min_temp'] ?? null,
+            'max_temp' => $data['settings']['max_temp'] ?? null,
+            'min_hum' => $data['settings']['min_hum'] ?? null,
+            'max_hum' => $data['settings']['max_hum'] ?? null,
+            'light_control_enabled' => $data['settings']['light_control_enabled'] ?? false,
+            'timezone' => $data['settings']['timezone'] ?? null,
+            'day_start' => $data['settings']['day_start'] ?? null,
+            'day_period' => $data['settings']['day_period'] ?? null,
+            'light_day_threshold' => $data['settings']['light_day_threshold'] ?? null,
+            'light_night_threshold' => $data['settings']['light_night_threshold'] ?? null,
+        ] : null;
     }
 
     public function id(): int

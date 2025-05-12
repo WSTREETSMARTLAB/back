@@ -56,14 +56,16 @@ class ToolRepository extends Repository
 
         $tool->settings =
             [
-                'min_temp' => $data['min_temp'],
-                'max_temp' => $data['max_temp'],
-                'min_hum' => $data['min_hum'],
-                'max_hum' => $data['max_hum'],
-                'light_day_threshold' => $data['light_day_threshold'],
-                'light_night_threshold' => $data['light_night_threshold'],
-                'day_start' => $data['day_start'],
-                'day_end' => $data['day_end']
+                'min_temp' => $data['min_temp'] ?? null,
+                'max_temp' => $data['max_temp'] ?? null,
+                'min_hum' => $data['min_hum'] ?? null,
+                'max_hum' => $data['max_hum'] ?? null,
+                'light_control_enabled' => $data['light_control_enabled'] ?? false,
+                'timezone' => $data['timezone'] ?? null,
+                'day_start' => $data['day_start'] ?? null,
+                'day_period' => $data['day_period'] ?? null,
+                'light_day_threshold' => $data['light_day_threshold'] ?? null,
+                'light_night_threshold' => $data['light_night_threshold'] ?? null,
             ];
 
         $tool->save();

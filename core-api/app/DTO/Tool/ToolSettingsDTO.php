@@ -11,10 +11,12 @@ class ToolSettingsDTO
     private ?float $maxTemp;
     private ?int $minHum;
     private ?int $maxHum;
+    private bool $lightControlEnabled;
+    private ?string $timezone;
+    private ?string $dayStart;
+    private ?int $dayPeriod;
     private ?int $lightDayThreshold;
     private ?int $lightNightThreshold;
-    private ?string $dayStart;
-    private ?string $dayEnd;
 
     public function __construct(array $data)
     {
@@ -22,10 +24,12 @@ class ToolSettingsDTO
         $this->maxTemp = $data['max_temp'] ?? null;
         $this->minHum = $data['min_hum'] ?? null;
         $this->maxHum = $data['max_hum'] ?? null;
+        $this->lightControlEnabled = $data['light_control_enabled'] ?? false;
+        $this->timezone = $data['timezone'] ?? null;
+        $this->dayStart = $data['day_start'] ?? null;
+        $this->dayPeriod = $data['day_period'] ?? null;
         $this->lightDayThreshold = $data['light_day_threshold'] ?? null;
         $this->lightNightThreshold = $data['light_night_threshold'] ?? null;
-        $this->dayStart = $data['day_start'] ?? null;
-        $this->dayEnd = $data['day_end'] ?? null;
     }
 
     public function minTemp(): ?float
@@ -48,6 +52,27 @@ class ToolSettingsDTO
         return $this->maxHum;
     }
 
+    public function lightControlEnabled(): bool
+    {
+        return $this->lightControlEnabled;
+    }
+
+    public function timezone(): ?string
+    {
+        return $this->timezone;
+    }
+
+    public function dayStart(): ?string
+    {
+        return $this->dayStart;
+    }
+
+    public function dayPeriod(): ?int
+    {
+        return $this->dayPeriod;
+    }
+
+
     public function lightDayThreshold(): ?float
     {
         return $this->lightDayThreshold;
@@ -58,27 +83,19 @@ class ToolSettingsDTO
         return $this->lightNightThreshold;
     }
 
-    public function dayStart(): ?string
-    {
-        return $this->dayStart;
-    }
-
-    public function dayEnd(): ?string
-    {
-        return $this->dayEnd;
-    }
-
     public function toArray(): array
     {
         return [
-            'min_temp' => $this->minTemp,
-            'max_temp' => $this->maxTemp,
-            'min_hum' => $this->minHum,
-            'max_hum' => $this->maxHum,
-            'light_day_threshold' => $this->lightDayThreshold,
-            'light_night_threshold' => $this->lightNightThreshold,
-            'day_start' => $this->dayStart,
-            'day_end' => $this->dayEnd,
+            'min_temp' => $this->minTemp(),
+            'max_temp' => $this->maxTemp(),
+            'min_hum' => $this->minHum(),
+            'max_hum' => $this->maxHum(),
+            'light_control_enabled' => $this->lightControlEnabled(),
+            'timezone' => $this->timezone(),
+            'day_start' => $this->dayStart(),
+            'day_period' => $this->dayPeriod(),
+            'light_day_threshold' => $this->lightDayThreshold(),
+            'light_night_threshold' => $this->lightNightThreshold(),
         ];
     }
 }

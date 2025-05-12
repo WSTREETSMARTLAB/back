@@ -19,6 +19,13 @@ class Alarm extends Model
         'resolved'
     ];
 
+    protected $hidden = [
+        'id',
+        'tool_id',
+        'created_at',
+        'updated_at'
+    ];
+
     protected $casts = [
         'start' => 'datetime',
         'end' => 'datetime',

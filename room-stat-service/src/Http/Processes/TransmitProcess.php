@@ -26,10 +26,13 @@ class TransmitProcess
 
         $alarmKeys = $this->session->keys("alarms:tool:{$tool->id()}:*");
         $alarmValues = $this->session->mget($alarmKeys);
-        foreach ($alarmValues as &$value) {
-            $value = json_decode($value, true);
+
+        if ($alarmValues) {
+            foreach ($alarmValues as &$value) {
+                $value = json_decode($value, true);
+            }
+            unset($value);
         }
-        unset($value);
 
         $signal = [
             'params' => [
