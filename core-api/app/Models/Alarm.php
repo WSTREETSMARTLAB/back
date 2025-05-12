@@ -20,7 +20,6 @@ class Alarm extends Model
     ];
 
     protected $hidden = [
-        'id',
         'tool_id',
         'created_at',
         'updated_at'
