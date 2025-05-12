@@ -9,9 +9,14 @@ class AnalyzeLight extends AnalyzeAction
     public function handle(int $value): void
     {
         if ($this->settings['light_control_enabled']) {
-            $currentTime = (new \DateTime());
-//            $dayEnd = $this->settings['day_start'] + $this->settings['day_period'];
-            $isDay = $currentTime >= $this->settings['day_start'] && $currentTime <= $this->settings['day_end'];
+            $timezone = new \DateTimeZone($this->settings['timezone'] ?? 'UTC');
+            $currentTime = new \DateTime('now', new \DateTimeZone($this->settings['timezone'] ?? 'UTC'));
+
+            $dayStart = \DateTime::createFromFormat('H:i', $this->settings['day_start'], $timezone);
+            $interval = new \DateInterval("PT{$this->settings['day_period']}H");
+            $dayEnd = clone $dayStart;
+            $dayEnd->add($interval);
+            $isDay = $currentTime >= $dayStart && $currentTime <= $dayEnd;
 
             if ($isDay && $value < $this->settings['light_day_threshold']) {
                 $this->startAlarm(Alarm::LIGHT_OFF_DAY->code(), $value);
