@@ -51,6 +51,6 @@ Route::middleware('auth:sanctum')->group(function () { // todo set user role for
 
     // Alarms
     Route::prefix('/tools/{tool_id}/alarms')->group(function () {
-        Route::get('/list', [AlarmController::class, 'list']);
+        Route::get('/', [AlarmController::class, 'list']);
     });
 });
