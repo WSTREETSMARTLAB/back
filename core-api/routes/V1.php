@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\AlarmController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ToolController;
 use App\Http\Controllers\UserController;
@@ -47,4 +48,9 @@ Route::middleware('auth:sanctum')->group(function () { // todo set user role for
     Route::get('/tools/{id}/preferences', [ToolController::class, 'getPreferences']);
     Route::get('/tools/{id}/settings', [ToolController::class, 'getSettings']);
     Route::put('/tools/{id}/settings', [ToolController::class, 'setSettings']);
+
+    // Alarms
+    Route::prefix('/tools/{tool_id}/alarms')->group(function () {
+        Route::get('/list', [AlarmController::class, 'list']);
+    });
 });
