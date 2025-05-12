@@ -63,6 +63,7 @@ class ToolRepository extends Repository
                 'light_control_enabled' => $data['light_control_enabled'] ?? false,
                 'timezone' => $data['timezone'] ?? null,
                 'day_start' => $data['day_start'] ?? null,
+                'day_period' => $data['day_period'] ?? null,
                 'light_day_threshold' => $data['light_day_threshold'] ?? null,
                 'light_night_threshold' => $data['light_night_threshold'] ?? null,
             ];

@@ -20,8 +20,8 @@ class ToolSettingsRequest extends BaseFormRequest
             'max_hum' => ['nullable', 'integer', 'between:0,100'],
             'light_control_enabled' => ['nullable', 'boolean'],
             'timezone' => ['nullable', 'string'],
-            'day_period' => ['nullable', 'numeric', 'between:0,24'],
             'day_start' => ['nullable', 'string'],
+            'day_period' => ['nullable', 'numeric', 'between:0,24'],
             'light_day_threshold' => ['nullable', 'integer', 'between:0,100'],
             'light_night_threshold' => ['nullable', 'integer', 'between:0,100'],
         ];

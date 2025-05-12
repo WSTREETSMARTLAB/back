@@ -14,6 +14,7 @@ class ToolSettingsDTO
     private bool $lightControlEnabled;
     private ?string $timezone;
     private ?string $dayStart;
+    private ?int $dayPeriod;
     private ?int $lightDayThreshold;
     private ?int $lightNightThreshold;
 
@@ -26,6 +27,7 @@ class ToolSettingsDTO
         $this->lightControlEnabled = $data['light_control_enabled'] ?? false;
         $this->timezone = $data['timezone'] ?? null;
         $this->dayStart = $data['day_start'] ?? null;
+        $this->dayPeriod = $data['day_period'] ?? null;
         $this->lightDayThreshold = $data['light_day_threshold'] ?? null;
         $this->lightNightThreshold = $data['light_night_threshold'] ?? null;
     }
@@ -65,6 +67,11 @@ class ToolSettingsDTO
         return $this->dayStart;
     }
 
+    public function dayPeriod(): ?int
+    {
+        return $this->dayPeriod;
+    }
+
 
     public function lightDayThreshold(): ?float
     {
@@ -85,9 +92,10 @@ class ToolSettingsDTO
             'max_hum' => $this->maxHum(),
             'light_control_enabled' => $this->lightControlEnabled(),
             'timezone' => $this->timezone(),
+            'day_start' => $this->dayStart(),
+            'day_period' => $this->dayPeriod(),
             'light_day_threshold' => $this->lightDayThreshold(),
             'light_night_threshold' => $this->lightNightThreshold(),
-            'day_start' => $this->dayStart(),
         ];
     }
 }
