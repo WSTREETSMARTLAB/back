@@ -18,10 +18,12 @@ class ToolSettingsRequest extends BaseFormRequest
             'max_temp' => ['nullable', 'numeric', 'between:0,60'],
             'min_hum' => ['nullable', 'integer', 'between:0,100'],
             'max_hum' => ['nullable', 'integer', 'between:0,100'],
+            'light_control_enabled' => ['nullable', 'boolean'],
+            'timezone' => ['nullable', 'string'],
+            'day_period' => ['nullable', 'numeric', 'between:0,24'],
+            'day_start' => ['nullable', 'string'],
             'light_day_threshold' => ['nullable', 'integer', 'between:0,100'],
             'light_night_threshold' => ['nullable', 'integer', 'between:0,100'],
-            'day_start' => ['nullable', 'date_format:H:i'],
-            'day_end' => ['nullable', 'date_format:H:i'],
         ];
     }
 }
