@@ -11,7 +11,9 @@ class AlarmController extends Controller
     {
         $userId = auth()->id();
 
-        $data = $process->handle($toolId, $userId);
+        $perPage = request()->query('per_page', 15);
+
+        $data = $process->handle($toolId, $userId, $perPage);
 
         return response()->json([
             'data' => $data
