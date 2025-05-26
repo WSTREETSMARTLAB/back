@@ -75,8 +75,6 @@ class Handler implements MessageComponentInterface
         if (preg_match('/^sensor:(.+):signal$/', $channel, $matches)) {
             $token = $matches[1];
 
-            echo $token;
-
             $redis = new \Redis();
             $redis->connect(getenv('REDIS_HOST'), getenv('REDIS_PORT'));
 
