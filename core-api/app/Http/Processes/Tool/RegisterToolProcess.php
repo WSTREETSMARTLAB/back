@@ -26,7 +26,13 @@ class RegisterToolProcess
             'location_note' => null,
             'last_online_at' => now(),
             'firmware_version' => 'ARDUINO 2.0', // remove hardcode
-            'settings' => []
+            'settings' => [
+                'min_temp' => 10,
+                'max_temp' => 30,
+                'min_hum' => 30,
+                'max_hum' => 90,
+                'light_control_enabled' => false,
+            ]
         ];
 
         $this->repository->createTool($payload);

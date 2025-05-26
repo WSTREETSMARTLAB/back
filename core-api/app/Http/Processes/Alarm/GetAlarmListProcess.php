@@ -5,7 +5,7 @@ namespace App\Http\Processes\Alarm;
 use App\Repositories\AlarmRepository;
 use App\Repositories\ToolRepository;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class GetAlarmListProcess
 {
@@ -13,15 +13,13 @@ class GetAlarmListProcess
     {
     }
 
-    public function handle(int $toolId, int $userId): Collection
+    public function handle(int $toolId, int $userId, int $perPage): LengthAwarePaginator
     {
-
-
         if (!$this->toolRepository->userIsOwner($toolId, $userId)) {
             throw new AuthorizationException("User is not owner of tool id:$toolId");
         }
 
-        $alarms = $this->alarmRepository->forTool($toolId);
+        $alarms = $this->alarmRepository->forTool($toolId, $perPage);
 
         return $alarms;
     }
