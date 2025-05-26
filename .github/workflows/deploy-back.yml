@@ -25,7 +25,9 @@ jobs:
           ssh -i ~/.ssh/id_ed25519 deploy-assistant@65.108.255.104 << 'EOF'
             cd ~/w5smtlab/back
             git pull origin dev
-            docker compose up -d --build core-api ws-service room-stat-service
+            docker compose down --remove-orphans
+            docker compose build --no-cache core-api ws-service room-stat-service
+            docker compose up -d core-api ws-service room-stat-service
           
             sleep 5
             docker compose exec core-api php artisan optimize --no-interaction
