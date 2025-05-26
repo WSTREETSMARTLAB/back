@@ -27,7 +27,7 @@ jobs:
             git pull origin dev
             docker compose down --remove-orphans
             docker compose build --no-cache core-api ws-service room-stat-service
-            docker compose up -d core-api ws-service room-stat-service
+            docker compose up -d
           
             sleep 5
             docker compose exec core-api php artisan optimize --no-interaction
