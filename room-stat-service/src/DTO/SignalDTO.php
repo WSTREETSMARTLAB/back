@@ -20,7 +20,7 @@ class SignalDTO
         return $this->temperature;
     }
 
-    public function humidity(): int
+    public function humidity(): float
     {
         return $this->humidity;
     }
