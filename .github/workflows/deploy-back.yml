@@ -1,0 +1,35 @@
+name: Deploy Back to Dev Server
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.STAGING_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H 65.108.255.104 >> ~/.ssh/known_hosts
+
+      - name: Deploy via SSH
+        run: |
+          ssh -i ~/.ssh/id_ed25519 deploy-assistant@65.108.255.104 << 'EOF'
+            cd ~/w5smtlab/back
+            git pull origin dev
+            docker compose up -d --build core-api ws-service room-stat-service
+          
+            sleep 5
+            docker compose exec core-api php artisan optimize --no-interaction
+            docker compose exec core-api php artisan migrate --force --no-interaction
+            docker image prune -f
+
+          EOF
