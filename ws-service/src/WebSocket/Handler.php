@@ -71,5 +71,18 @@ class Handler implements MessageComponentInterface
         }
 
         $this->channels[$channel]->attach($conn);
+
+        if (preg_match('/^sensor:(.+):signal$/', $channel, $matches)) {
+            $token = $matches[1];
+
+            $redis = new \Redis();
+            $redis->connect(getenv('REDIS_HOST'), getenv('REDIS_PORT'));
+
+            $cached = $redis->get("signal:last:{$token}");
+
+            if ($cached) {
+                $conn->send($cached);
+            }
+        }
     }
 }

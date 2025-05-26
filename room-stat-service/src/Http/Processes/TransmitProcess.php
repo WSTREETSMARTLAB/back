@@ -40,8 +40,13 @@ class TransmitProcess
                 'humidity'    => round($signal->humidity(), 1),
                 'light'       => round($signal->light(), 1),
             ],
-            'alarms' => $alarmValues
+            'alarms' => $alarmValues,
+            'ts' => time()
         ];
+
+        $ttl = 30;
+
+        $this->session->setex("signal:last:{$token}", $ttl, json_encode($signal));
 
         $this->session->publish("sensor:{$token}:signal", json_encode($signal));
     }
