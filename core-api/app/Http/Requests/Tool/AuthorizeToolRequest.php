@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Tool;
 
+use App\Enums\ToolType;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class AuthorizeToolRequest extends FormRequest
 {
@@ -14,8 +16,8 @@ class AuthorizeToolRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "type" => ['required'],
-            "code" => ['required']
+            "type" => ['required', 'string', Rule::in(ToolType::values())],
+            "code" => ['required', 'string', 'size:9', 'exists:tools,code']
         ];
     }
 }

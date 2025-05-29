@@ -17,7 +17,7 @@ class RegisterToolRequest extends BaseFormRequest
     {
         return [
             'type' => ['required', 'string', Rule::in(ToolType::values())],
-            'name' => ['required', 'string', Rule::unique('tools')->where(function ($query) {
+            'name' => ['required', 'string', 'min:3', 'max:24', Rule::unique('tools')->where(function ($query) {
                 return $query->where('user_id', auth()->id());
             })],
         ];
