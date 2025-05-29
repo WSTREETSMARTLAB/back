@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Processes\Tool\AuthorizeToolProcess;
+use App\Http\Processes\Tool\GetMyToolsProcess;
 use App\Http\Processes\Tool\GetToolPreferencesProcess;
 use App\Http\Processes\Tool\GetToolSettingsProcess;
-use App\Http\Processes\Tool\GetMyToolsProcess;
 use App\Http\Processes\Tool\RegisterToolProcess;
 use App\Http\Processes\Tool\ResolveUserToolProcess;
 use App\Http\Processes\Tool\SetToolSettingsProcess;
-use App\Http\Requests\AuthorizeToolRequest;
-use App\Http\Requests\Tool\RegisterToolRequest;
+use App\Http\Requests\Tool\AuthorizeToolRequest;
 use App\Http\Requests\Tool\MyToolsRequest;
+use App\Http\Requests\Tool\RegisterToolRequest;
 use App\Http\Requests\Tool\ToolSettingsRequest;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
