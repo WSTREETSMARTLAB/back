@@ -28,10 +28,10 @@ class AlarmController extends Controller
 
         $requestData = $request->validated();
 
-        $data = $process->handle($toolId, $userId, $requestData);
+        $data = $process->handle($toolId, $userId, $requestData['ids']);
 
         return response()->json([
-            'data' => $data
+            'message' =>  "$data alarms deleted"
         ], Response::HTTP_OK);
     }
 }

@@ -16,7 +16,7 @@ class GetAlarmListProcess
     public function handle(int $toolId, int $userId, int $perPage): LengthAwarePaginator
     {
         if (!$this->toolRepository->userIsOwner($toolId, $userId)) {
-            throw new AuthorizationException("User is not owner of tool id:$toolId");
+            throw new AuthorizationException("User is not owner of tool id:$toolId"); // todo move to middleware
         }
 
         $alarms = $this->alarmRepository->forTool($toolId, $perPage);

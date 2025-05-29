@@ -18,4 +18,14 @@ class AlarmRepository extends Repository
 
         return $data;
     }
+
+    public function deleteAlarms(int $toolId, array $alarmsIds): int
+    {
+        $data = $this->query()
+            ->whereIn('id', $alarmsIds)
+            ->where('tool_id', $toolId)
+            ->delete();
+
+        return $data;
+    }
 }
