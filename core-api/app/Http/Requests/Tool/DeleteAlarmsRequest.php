@@ -2,18 +2,10 @@
 
 namespace App\Http\Requests\Tool;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
-class DeleteAlarmsRequest extends FormRequest
+class DeleteAlarmsRequest extends BaseFormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return false;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
