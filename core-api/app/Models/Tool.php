@@ -14,22 +14,21 @@ class Tool extends Model
         'type',
         'user_id',
         'company_id',
-        'room_id',
-        'is_active',
+        'active',
         'code',
         'activated_at',
         'name',
         'location_note',
         'last_online_at',
         'firmware_version',
-        'meta',
+        'settings',
     ];
 
     protected $casts = [
-        'is_active' => 'boolean',
+        'active' => 'boolean',
         'activated_at' => 'datetime',
         'last_online_at' => 'datetime',
-        'meta' => 'array',
+        'settings' => 'array',
     ];
 
     public function user(): BelongsTo
@@ -41,9 +40,4 @@ class Tool extends Model
     {
         return $this->belongsTo(Company::class);
     }
-
-//    public function room(): BelongsTo
-//    {
-//        return $this->belongsTo(Room::class);
-//    }
 }

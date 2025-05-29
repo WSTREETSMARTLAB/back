@@ -12,7 +12,7 @@ class LoginProcess
     {
     }
 
-    public function handle(array $data)
+    public function handle(array $data): string
     {
         $user = $this->userRepository->findBy('email', $data['email']);
 
@@ -30,8 +30,6 @@ class LoginProcess
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return [
-            'auth_token' => $token,
-        ];
+        return $token;
     }
 }

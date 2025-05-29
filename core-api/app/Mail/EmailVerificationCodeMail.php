@@ -3,10 +3,7 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class EmailVerificationCodeMail extends Mailable
@@ -24,7 +21,7 @@ class EmailVerificationCodeMail extends Mailable
     {
         return $this
             ->subject('Welcome to WSTREET SMART LAB')
-            ->view('emails.verification-code')
+            ->view('emails.email-verification-code')
             ->with([
                 'username' => $this->username,
                 'code' => $this->code,

@@ -1,5 +1,11 @@
-/.env
+.env
 .idea/
 
-/room-stat-service/vendor
-/ws-service/vendor
+/room-stat-service/vendor/
+/ws-service/vendor/
+
+nginx.conf
+certbot/
+
+docker-compose.yaml
+xdebug.ini

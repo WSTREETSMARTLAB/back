@@ -19,6 +19,9 @@ enum Role: string
             ],
             self::User => [
                 Permission::ViewDashboard,
+                // registerTool
+                // showTool
+                //
             ],
         };
     }

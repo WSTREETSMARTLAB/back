@@ -11,8 +11,9 @@ class Subscriber
 
     public function listen()
     {
-        $this->redis->psubscribe(['sensor:*:signal'], function ($redis, $pattern, $channel, $message) {
-            $this->handler->broadcast($channel, $message);
-        });
+        $this->redis->psubscribe(['sensor:*:signal'],
+            function ($redis, $pattern, $channel, $message) {
+                $this->handler->broadcast($channel, $message);
+            });
     }
 }

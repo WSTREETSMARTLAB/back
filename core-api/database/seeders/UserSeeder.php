@@ -19,10 +19,10 @@ class UserSeeder extends Seeder
         User::factory()->count(5)->create(['subscription_plan' => 'premium']);
 
         User::factory()->create([
-            'name' => 'Admin User',
+            'name' => 'wstreet_lab',
             'username' => 'admin',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('password'),
+            'email' => 'lab@wstreet.com',
+            'password' => Hash::make('securepassword123'),
             'role' => Role::Admin->value,
             'subscription_plan' => 'premium',
             'subscription_expires_at' => now()->addYear(),

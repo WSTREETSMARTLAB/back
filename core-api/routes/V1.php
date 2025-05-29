@@ -1,7 +1,10 @@
 <?php
 
 
+use App\Http\Controllers\AlarmController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ToolController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +32,26 @@ Route::post('/auth/login', [AuthController::class, 'login']);
 Route::post('/auth/verify', [AuthController::class, 'verify']);
 Route::get('/auth/resend-email-verification', [AuthController::class, 'resend']);
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::post('/tools/auth', [ToolController::class, 'authorizeTool']);
+
+Route::middleware('auth:sanctum')->group(function () { // todo set user role for routes
     Route::get('/auth/logout', [AuthController::class, 'logout']);
+
+    // Users
+    Route::get('/users/me', [UserController::class, 'showMe']);
+    Route::put('/users/account', [UserController::class, 'updateMyAccount']);
+    Route::delete('/users/account', [UserController::class, 'deleteMyAccount']);
+
+    // Tools
+    Route::get('/tools/my', [ToolController::class, 'myTools']);
+    Route::post('/tools/register', [ToolController::class, 'registerTool']);
+    Route::get('/tools/{id}/preferences', [ToolController::class, 'getPreferences']);
+    Route::get('/tools/{id}/settings', [ToolController::class, 'getSettings']);
+    Route::put('/tools/{id}/settings', [ToolController::class, 'setSettings']);
+
+    // Alarms
+    Route::prefix('/tools/{tool_id}/alarms')->group(function () {
+        Route::get('/', [AlarmController::class, 'list']);
+        Route::post('/delete', [AlarmController::class, 'delete']);
+    });
 });

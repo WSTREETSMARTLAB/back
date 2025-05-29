@@ -16,4 +16,34 @@ class UserRepository extends Repository
             'password' => $data['password'],
         ]);
     }
+
+    public function getUserById(int $id): User
+    {
+        return $this->query()->where('id', $id)->firstOrFail();
+    }
+
+    public function usernameExists(string $username): bool
+    {
+        return $this->query()->where('username', $username)->exists();
+    }
+
+    public function updatePreferences(int $id, array $data): User
+    {
+        $user = $this->getUserById($id);
+
+        $user->update([
+            'username' => $data['username'],
+            'email' => $data['email'],
+            'avatar' => $data['avatar'] ?? null,
+        ]);
+
+        return $user->fresh();
+    }
+
+    public function deleteAccount(int $id): bool
+    {
+        $user = $this->getUserById($id);
+
+        return $user->delete();
+    }
 }

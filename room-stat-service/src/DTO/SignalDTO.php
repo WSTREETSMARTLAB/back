@@ -20,7 +20,7 @@ class SignalDTO
         return $this->temperature;
     }
 
-    public function humidity(): int
+    public function humidity(): float
     {
         return $this->humidity;
     }
@@ -28,5 +28,14 @@ class SignalDTO
     public function light(): int
     {
         return $this->light;
+    }
+
+    public function all(): array
+    {
+        return [
+            'temperature' => $this->temperature(),
+            'humidity' => $this->humidity(),
+            'light' => $this->light(),
+        ];
     }
 }
