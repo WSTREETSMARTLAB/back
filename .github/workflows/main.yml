@@ -18,13 +18,21 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.PRODUCTION_SSH_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H 65.108.255.104 >> ~/.ssh/known_hosts
+          ssh-keyscan -H 37.27.17.86 >> ~/.ssh/known_hosts
 
       - name: Deploy via SSH
         run: |
-          ssh -i ~/.ssh/id_ed25519 deploy-assistant@65.108.255.104 << 'EOF'
+          ssh -i ~/.ssh/id_ed25519 deploy-assistant@37.27.17.86 << 'EOF'
             cd ~/w5smtlab/back
             git pull origin main
+          
+            rm -rf core-api/tests
+            rm -rf core-api/phpunit.xml
+            rm -rf ws-service/tests
+            rm -rf ws-service/phpunit.xml
+            rm -rf room-stat-service/tests
+            rm -rf room-stat-service/phpunit.xml
+          
             docker compose down --remove-orphans
             docker compose build --no-cache core-api ws-service room-stat-service
             docker compose up -d
