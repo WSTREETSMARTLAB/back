@@ -16,7 +16,7 @@ WORKDIR /var/www/html
 
 COPY . .
 
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader || true
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
 EXPOSE 9020
 
