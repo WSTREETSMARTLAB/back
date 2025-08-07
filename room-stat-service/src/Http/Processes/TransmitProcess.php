@@ -44,7 +44,7 @@ class TransmitProcess
             'ts' => time()
         ];
 
-        $ttl = 30;
+        $ttl = 180;
 
         $this->session->setex("signal:last:{$token}", $ttl, json_encode($signal));
 
