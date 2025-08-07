@@ -9,3 +9,6 @@ certbot/
 
 docker-compose.yaml
 xdebug.ini
+
+.cursor
+memory-bank/
