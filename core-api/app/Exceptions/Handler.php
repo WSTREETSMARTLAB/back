@@ -3,12 +3,17 @@
 namespace App\Exceptions;
 
 use App\Http\Responses\HttpResponse;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
@@ -34,6 +39,10 @@ class Handler extends ExceptionHandler
             'message' => 'Unauthorized',
             'code' => Response::HTTP_UNAUTHORIZED
         ],
+        AuthorizationException::class => [
+            'message' => 'Forbidden',
+            'code' => Response::HTTP_FORBIDDEN,
+        ],
         AccessDeniedHttpException::class => [
             'message' => 'Access denied',
             'code' => Response::HTTP_FORBIDDEN
@@ -41,7 +50,23 @@ class Handler extends ExceptionHandler
         ValidationException::class => [
             'message' => 'The given data was invalid',
             'code' => Response::HTTP_UNPROCESSABLE_ENTITY
-        ]
+        ],
+        ModelNotFoundException::class => [
+            'message' => 'Resource not found',
+            'code' => Response::HTTP_NOT_FOUND,
+        ],
+        MethodNotAllowedHttpException::class => [
+            'message' => 'Method not allowed',
+            'code' => Response::HTTP_METHOD_NOT_ALLOWED,
+        ],
+        ThrottleRequestsException::class => [
+            'message' => 'Too many requests',
+            'code' => Response::HTTP_TOO_MANY_REQUESTS,
+        ],
+        QueryException::class => [
+            'message' => 'Database query error',
+            'code' => Response::HTTP_INTERNAL_SERVER_ERROR,
+        ],
     ];
 
     /**
@@ -71,7 +96,12 @@ class Handler extends ExceptionHandler
             if ($exception instanceof $index) {
                 $payload['message'] = $error['message'];
                 $payload['code'] = $error['code'];
+                break;
             }
+        }
+
+        if ((app()->isProduction()) && ($exception instanceof QueryException)) {
+            $payload['error'] = 'Internal error';
         }
 
         return new HttpResponse(
