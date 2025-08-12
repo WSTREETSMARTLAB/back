@@ -89,7 +89,7 @@ class Handler extends ExceptionHandler
     {
         $payload = [
             'error' => $exception instanceof ValidationException ? $exception->errors() : $exception->getMessage(),
-            'message' => 'Server Error',
+            'message' => ResponseMessage::SERVER_ERROR->value,
             'code' => Response::HTTP_INTERNAL_SERVER_ERROR
         ];
 

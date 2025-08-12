@@ -40,10 +40,10 @@ class UserRepository extends Repository
         return $user->fresh();
     }
 
-    public function deleteAccount(int $id): bool
+    public function deleteAccount(int $id): void
     {
         $user = $this->getUserById($id);
 
-        return $user->delete();
+        $user->delete();
     }
 }

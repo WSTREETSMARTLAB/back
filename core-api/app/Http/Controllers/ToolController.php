@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ResponseMessage;
 use App\Http\Processes\Tool\AuthorizeToolProcess;
 use App\Http\Processes\Tool\GetMyToolsProcess;
 use App\Http\Processes\Tool\GetToolPreferencesProcess;
@@ -13,6 +14,7 @@ use App\Http\Requests\Tool\AuthorizeToolRequest;
 use App\Http\Requests\Tool\MyToolsRequest;
 use App\Http\Requests\Tool\RegisterToolRequest;
 use App\Http\Requests\Tool\ToolSettingsRequest;
+use App\Http\Responses\HttpResponse;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -23,31 +25,35 @@ class ToolController extends Controller
         $response = $process->handle(auth()->id());
 
         return response()->json([
-            'data' => $response,
+            'data' => $response, // use resource class
         ], Response::HTTP_OK);
     }
 
-    public function registerTool(RegisterToolRequest $request, RegisterToolProcess $process): JsonResponse
+    public function registerTool(RegisterToolRequest $request, RegisterToolProcess $process): HttpResponse
     {
         $requestData = $request->validated();
         $userId = auth()->user()->id;
 
         $process->handle($userId, $requestData);
 
-        return response()->json([], Response::HTTP_OK);
+        return new HttpResponse(
+            [],
+            ResponseMessage::REGISTER_SUCCESS->value
+        );
     }
 
-    public function authorizeTool(AuthorizeToolRequest $request, AuthorizeToolProcess $process): JsonResponse
+    public function authorizeTool(AuthorizeToolRequest $request, AuthorizeToolProcess $process): HttpResponse
     {
         $requestData = $request->validated();
 
         $response = $process->handle($requestData);
 
-        return response()->json([
-            'data' => [
+        return new HttpResponse(
+            [
                 'token' => $response
-            ]
-        ], Response::HTTP_OK);
+            ],
+            ResponseMessage::AUTH_SUCCESS->value
+        );
     }
 
     public function getPreferences(int $id, GetToolPreferencesProcess $process): JsonResponse
@@ -58,7 +64,7 @@ class ToolController extends Controller
 
         return response()->json([
             'data' => [
-                'preferences' => $response
+                'preferences' => $response // use resource class
             ]
         ], Response::HTTP_OK);
     }
@@ -69,21 +75,22 @@ class ToolController extends Controller
 
         return response()->json([
             'data' => [
-                'settings' => $data->toArray()
+                'settings' => $data->toArray() // use resource class
             ]
         ], Response::HTTP_OK);
     }
 
-    public function setSettings(int $id, ToolSettingsRequest $request, SetToolSettingsProcess $process): JsonResponse
+    public function setSettings(int $id, ToolSettingsRequest $request, SetToolSettingsProcess $process): HttpResponse
     {
         $requestData = $request->validated();
 
         $data = $process->handle($id, auth()->id(), $requestData);
 
-        return response()->json([
-            'data' => [
+        return new HttpResponse(
+            [
                 'settings' => $data->toArray()
-            ]
-        ], Response::HTTP_OK);
+            ],
+            ResponseMessage::UPDATE_SUCCESS->value
+        );
     }
 }

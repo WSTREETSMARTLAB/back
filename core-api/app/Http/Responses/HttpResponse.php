@@ -2,6 +2,7 @@
 
 namespace App\Http\Responses;
 
+use App\Enums\ResponseMessage;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;

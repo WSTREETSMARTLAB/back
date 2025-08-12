@@ -21,7 +21,13 @@ enum ResponseMessage: string
 
     // success
 
+    case LOGIN_SUCCESS = 'Login successful';
+    case REGISTER_SUCCESS = 'Registration successful';
+    case LOGOUT_SUCCESS = 'Logout successful';
+    case AUTH_SUCCESS = 'Authorization success';
     case STORE_SUCCESS = 'Data successfully stored';
     case UPDATE_SUCCESS = 'Data successfully updated';
     case DELETE_SUCCESS = 'Data successfully deleted';
+    case VERIFICATION_SUCCESS = 'Verification successful';
+    case CODE_SENT_TO_EMAIL = 'Verification code sent to email';
 }

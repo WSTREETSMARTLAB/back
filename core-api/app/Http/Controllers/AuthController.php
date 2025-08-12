@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ResponseMessage;
 use App\Http\Processes\Auth\LoginProcess;
 use App\Http\Processes\Auth\LogoutProcess;
 use App\Http\Processes\Auth\RegisterProcess;
@@ -12,8 +13,6 @@ use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Auth\ResendRequest;
 use App\Http\Requests\Auth\VerificationRequest;
 use App\Http\Responses\HttpResponse;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
 
 class AuthController extends Controller
 {
@@ -24,7 +23,7 @@ class AuthController extends Controller
 
         return new HttpResponse(
             [],
-            'Verification code sent to email'
+            ResponseMessage::CODE_SENT_TO_EMAIL->value
         );
     }
 
@@ -35,7 +34,7 @@ class AuthController extends Controller
 
         return new HttpResponse(
             $response,
-            'Verification successful'
+            ResponseMessage::VERIFICATION_SUCCESS->value
         );
     }
 
@@ -46,7 +45,7 @@ class AuthController extends Controller
 
         return new HttpResponse(
             [],
-            'Verification code sent to email'
+            ResponseMessage::CODE_SENT_TO_EMAIL->value
         );
     }
 
@@ -57,7 +56,7 @@ class AuthController extends Controller
 
         return new HttpResponse(
             ['auth_token' => $response],
-            'Login successful'
+            ResponseMessage::LOGIN_SUCCESS->value
         );
     }
 
@@ -69,7 +68,7 @@ class AuthController extends Controller
 
         return new HttpResponse(
             [],
-            'Logout successful'
+            ResponseMessage::LOGOUT_SUCCESS->value
         );
     }
 }
