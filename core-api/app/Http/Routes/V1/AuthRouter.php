@@ -15,7 +15,7 @@ class AuthRouter implements RouteRegistrar
             ->prefix('api/v1/auth')
             ->group(fn () => $this->routes());
 
-        Route::middleware(['api', 'sanctum'])
+        Route::middleware(['api', 'auth:sanctum'])
             ->prefix('api/v1/auth')
             ->group(function () {
                 Route::get('/logout', [AuthController::class, 'logout']);
