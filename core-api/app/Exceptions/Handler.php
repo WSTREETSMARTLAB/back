@@ -2,11 +2,12 @@
 
 namespace App\Exceptions;
 
+use App\Http\Responses\HttpResponse;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
@@ -24,6 +25,25 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
+    private $errors = [
+        NotFoundHttpException::class => [
+            'message' => 'Route not found',
+            'code' => Response::HTTP_NOT_FOUND
+        ],
+        AuthenticationException::class => [
+            'message' => 'Unauthorized',
+            'code' => Response::HTTP_UNAUTHORIZED
+        ],
+        AccessDeniedHttpException::class => [
+            'message' => 'Access denied',
+            'code' => Response::HTTP_FORBIDDEN
+        ],
+        ValidationException::class => [
+            'message' => 'The given data was invalid',
+            'code' => Response::HTTP_UNPROCESSABLE_ENTITY
+        ]
+    ];
+
     /**
      * Register the exception handling callbacks for the application.
      */
@@ -39,32 +59,28 @@ class Handler extends ExceptionHandler
     /**
      * Handle API exceptions and return JSON response.
      */
-    private function handleApiException(Throwable $exception): JsonResponse
+    private function handleApiException(Throwable $exception): HttpResponse
     {
-        if ($exception instanceof NotFoundHttpException) {
-            return response()->json([
-                'message' => 'Route not found',
-                'error' => $exception->getMessage(),
-            ], Response::HTTP_NOT_FOUND);
+        $payload = [
+            'error' => $exception instanceof ValidationException ? $exception->errors() : $exception->getMessage(),
+            'message' => 'Server Error',
+            'code' => Response::HTTP_INTERNAL_SERVER_ERROR
+        ];
+
+        foreach ($this->errors as $index => $error) {
+            if ($exception instanceof $index) {
+                $payload['message'] = $error['message'];
+                $payload['code'] = $error['code'];
+            }
         }
 
-        if ($exception instanceof AuthenticationException) {
-            return response()->json([
-                'message' => 'Unauthorized',
-                'error' => $exception->getMessage(),
-            ], Response::HTTP_UNAUTHORIZED);
-        }
-
-        if ($exception instanceof AccessDeniedHttpException) {
-            return response()->json([
-                'message' => 'Forbidden',
-                'error' => $exception->getMessage(),
-            ], Response::HTTP_FORBIDDEN);
-        }
-
-        return response()->json([
-            'message' => 'Something went wrong',
-            'error' => $exception->getMessage(),
-        ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        return new HttpResponse(
+            [
+                'error' => $payload['error']
+            ],
+            $payload['message'],
+            false,
+            $payload['code']
+        );
     }
 }
