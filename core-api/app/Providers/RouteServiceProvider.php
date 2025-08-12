@@ -3,10 +3,10 @@
 namespace App\Providers;
 
 use App\Http\Routes\RouteRegistrar;
-use App\Http\Routes\V1\AuthRoute;
-use App\Http\Routes\V1\SystemRoute;
-use App\Http\Routes\V1\ToolRoute;
-use App\Http\Routes\V1\UserRoute;
+use App\Http\Routes\V1\AuthRouter;
+use App\Http\Routes\V1\SystemRouter;
+use App\Http\Routes\V1\ToolRouter;
+use App\Http\Routes\V1\UserRouter;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Contracts\Routing\Registrar;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -16,11 +16,11 @@ use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    protected array $registrars = [
-        AuthRoute::class,
-        UserRoute::class,
-        ToolRoute::class,
-        SystemRoute::class
+    protected array $routers = [
+        AuthRouter::class,
+        UserRouter::class,
+        ToolRouter::class,
+        SystemRouter::class
     ];
 
     /**
@@ -33,23 +33,23 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         $this->routes(function () {
-            $this->mapRoutes(app(Registrar::class));
+            $this->mapRouters(app(Registrar::class));
         });
     }
 
-    private function mapRoutes(Registrar $router): void
+    private function mapRouters(Registrar $registrar): void
     {
-        foreach ($this->registrars as $registrar) {
-            if (! class_exists($registrar) || ! is_subclass_of($registrar, RouteRegistrar::class)) {
+        foreach ($this->routers as $router) {
+            if (! class_exists($router) || ! is_subclass_of($router, RouteRegistrar::class)) {
                 throw new \RuntimeException(
                     sprintf(
                         'Cannot map routes \'%s\', it is not a valid routes class',
-                        $registrar
+                        $router
                     )
                 );
             }
 
-            (new $registrar)->map($router);
+            (new $router)->map($registrar);
         }
     }
 }

@@ -7,7 +7,7 @@ use App\Http\Routes\RouteRegistrar;
 use Illuminate\Contracts\Routing\Registrar;
 use Illuminate\Support\Facades\Route;
 
-class AuthRoute implements RouteRegistrar
+class AuthRouter implements RouteRegistrar
 {
     public function map(Registrar $registrar): void
     {
