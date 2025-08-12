@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Enums\ResponseMessage;
 use App\Http\Responses\HttpResponse;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
@@ -32,39 +33,39 @@ class Handler extends ExceptionHandler
 
     private $errors = [
         NotFoundHttpException::class => [
-            'message' => 'Route not found',
+            'message' => ResponseMessage::HTTP_NOT_FOUND->value,
             'code' => Response::HTTP_NOT_FOUND
         ],
         AuthenticationException::class => [
-            'message' => 'Unauthorized',
+            'message' => ResponseMessage::UNAUTHORIZED->value,
             'code' => Response::HTTP_UNAUTHORIZED
         ],
         AuthorizationException::class => [
-            'message' => 'Forbidden',
+            'message' => ResponseMessage::FORBIDDEN->value,
             'code' => Response::HTTP_FORBIDDEN,
         ],
         AccessDeniedHttpException::class => [
-            'message' => 'Access denied',
+            'message' => ResponseMessage::FORBIDDEN->value,
             'code' => Response::HTTP_FORBIDDEN
         ],
         ValidationException::class => [
-            'message' => 'The given data was invalid',
+            'message' => ResponseMessage::VALIDATION_ERROR->value,
             'code' => Response::HTTP_UNPROCESSABLE_ENTITY
         ],
         ModelNotFoundException::class => [
-            'message' => 'Resource not found',
+            'message' => ResponseMessage::NOT_FOUND->value,
             'code' => Response::HTTP_NOT_FOUND,
         ],
         MethodNotAllowedHttpException::class => [
-            'message' => 'Method not allowed',
+            'message' => ResponseMessage::METHOD_NOT_ALLOWED->value,
             'code' => Response::HTTP_METHOD_NOT_ALLOWED,
         ],
         ThrottleRequestsException::class => [
-            'message' => 'Too many requests',
+            'message' => ResponseMessage::TOO_MANY_REQUESTS->value,
             'code' => Response::HTTP_TOO_MANY_REQUESTS,
         ],
         QueryException::class => [
-            'message' => 'Database query error',
+            'message' => ResponseMessage::QUERY_EXCEPTION->value,
             'code' => Response::HTTP_INTERNAL_SERVER_ERROR,
         ],
     ];
@@ -101,7 +102,7 @@ class Handler extends ExceptionHandler
         }
 
         if ((app()->isProduction()) && ($exception instanceof QueryException)) {
-            $payload['error'] = 'Internal error';
+            $payload['error'] = ResponseMessage::SERVER_ERROR->value;
         }
 
         return new HttpResponse(
