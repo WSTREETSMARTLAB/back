@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('guests', function (Blueprint $table) {
             $table->id();
+            $table->string('ip', 45);
+            $table->text('user_agent')->nullable();
+            $table->string('accept_language', 64)->nullable();
+            $table->string('referer')->nullable();
+            $table->string('host')->nullable();
+            $table->string('path')->nullable();
+            $table->string('method', 10);
+            $table->text('query')->nullable();
             $table->timestamps();
         });
     }
