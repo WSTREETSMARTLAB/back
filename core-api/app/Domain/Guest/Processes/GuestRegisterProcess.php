@@ -20,6 +20,6 @@ class GuestRegisterProcess
             abilities: ['guest']
         );
 
-        return $token;
+        return $token->plainTextToken;
     }
 }
