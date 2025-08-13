@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 
 use App\DTO\ToolDTO;
-use PDO;
+use App\System\Abstract\Repository;
 
 class ToolRepository extends Repository
 {

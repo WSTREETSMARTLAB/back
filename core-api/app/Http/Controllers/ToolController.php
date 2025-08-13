@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\ResponseMessage;
-use App\Http\Processes\Tool\AuthorizeToolProcess;
-use App\Http\Processes\Tool\GetMyToolsProcess;
-use App\Http\Processes\Tool\GetToolPreferencesProcess;
-use App\Http\Processes\Tool\GetToolSettingsProcess;
-use App\Http\Processes\Tool\RegisterToolProcess;
+use App\Domain\Tool\Processes\AuthorizeToolProcess;
+use App\Domain\Tool\Processes\GetMyToolsProcess;
+use App\Domain\Tool\Processes\GetToolPreferencesProcess;
+use App\Domain\Tool\Processes\GetToolSettingsProcess;
+use App\Domain\Tool\Processes\RegisterToolProcess;
+use App\Domain\Tool\Processes\SetToolSettingsProcess;
 use App\Http\Processes\Tool\ResolveUserToolProcess;
-use App\Http\Processes\Tool\SetToolSettingsProcess;
 use App\Http\Requests\Tool\AuthorizeToolRequest;
 use App\Http\Requests\Tool\MyToolsRequest;
 use App\Http\Requests\Tool\RegisterToolRequest;
 use App\Http\Requests\Tool\ToolSettingsRequest;
 use App\Http\Responses\HttpResponse;
+use App\System\Enums\ResponseMessage;
 
 class ToolController extends Controller
 {

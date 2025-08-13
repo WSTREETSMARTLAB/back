@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\ResponseMessage;
-use App\Http\Processes\Auth\LoginProcess;
-use App\Http\Processes\Auth\LogoutProcess;
-use App\Http\Processes\Auth\RegisterProcess;
-use App\Http\Processes\Auth\ResendProcess;
-use App\Http\Processes\Auth\VerificationProcess;
+use App\Domain\Profile\Processes\LoginProcess;
+use App\Domain\Profile\Processes\LogoutProcess;
+use App\Domain\Profile\Processes\RegisterProcess;
+use App\Domain\Profile\Processes\ResendProcess;
+use App\Domain\Profile\Processes\VerificationProcess;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Auth\ResendRequest;
 use App\Http\Requests\Auth\VerificationRequest;
 use App\Http\Responses\HttpResponse;
+use App\System\Enums\ResponseMessage;
 
 class AuthController extends Controller
 {

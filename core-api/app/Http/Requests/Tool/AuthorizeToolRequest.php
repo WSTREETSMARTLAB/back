@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Tool;
 
-use App\Enums\ToolType;
+use App\Domain\Tool\Enums\ToolType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 

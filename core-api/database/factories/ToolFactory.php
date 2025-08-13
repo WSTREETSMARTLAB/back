@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\Company;
-use App\Models\User;
+use App\Domain\Company\Models\Company;
+use App\Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Tool>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Domain\Tool\Models\Tool>
  */
 class ToolFactory extends Factory
 {

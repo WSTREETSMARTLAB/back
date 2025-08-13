@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Alarm;
-use App\Models\Tool;
+use App\Domain\Alarm\Models\Alarm;
+use App\Domain\Tool\Models\Tool;
 use Illuminate\Database\Seeder;
 
 class AlarmSeeder extends Seeder

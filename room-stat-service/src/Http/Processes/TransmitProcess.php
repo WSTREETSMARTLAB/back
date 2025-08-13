@@ -3,10 +3,10 @@
 namespace App\Http\Processes;
 
 use App\Core\DependencyAccessor;
+use App\Domain\Tool\Repositories\ToolRepository;
 use App\DTO\SignalDTO;
 use App\DTO\ToolDTO;
 use App\Http\Validators\SignalDeviationAnalyzer;
-use App\Repositories\ToolRepository;
 
 class TransmitProcess
 {

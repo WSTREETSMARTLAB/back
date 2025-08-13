@@ -2,14 +2,14 @@
 
 namespace Database\Factories;
 
-use App\Enums\Role;
-use App\Models\Company;
+use App\Domain\Company\Models\Company;
+use App\System\Enums\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Domain\User\Models\User>
  */
 class UserFactory extends Factory
 {

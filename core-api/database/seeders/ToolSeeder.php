@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Tool;
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Domain\Tool\Models\Tool;
+use App\Domain\User\Models\User;
 use Illuminate\Database\Seeder;
 
 class ToolSeeder extends Seeder

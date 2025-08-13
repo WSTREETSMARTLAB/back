@@ -3,7 +3,7 @@
 namespace App\Http\Actions;
 
 use App\Core\DependencyAccessor;
-use App\Repositories\AlarmRepository;
+use App\Domain\Alarm\Repositories\AlarmRepository;
 
 class AnalyzeAction
 {

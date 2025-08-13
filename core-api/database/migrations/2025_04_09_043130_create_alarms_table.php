@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('alarms', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', \App\Enums\Alarm::values());
+            $table->enum('type', \App\Domain\Alarm\Enums\Alarm::values());
             $table->foreignId('tool_id')->constrained()->cascadeOnDelete();
             $table->float('value');
             $table->timestamp('start');
