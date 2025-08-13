@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Exceptions;
+namespace App\System\Exceptions;
 
-use App\Enums\ResponseMessage;
 use App\Http\Responses\HttpResponse;
+use App\System\Enums\ResponseMessage;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;

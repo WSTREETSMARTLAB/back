@@ -7,12 +7,12 @@ use App\Domain\Profile\Processes\LogoutProcess;
 use App\Domain\Profile\Processes\RegisterProcess;
 use App\Domain\Profile\Processes\ResendProcess;
 use App\Domain\Profile\Processes\VerificationProcess;
-use App\Enums\ResponseMessage;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Auth\ResendRequest;
 use App\Http\Requests\Auth\VerificationRequest;
 use App\Http\Responses\HttpResponse;
+use App\System\Enums\ResponseMessage;
 
 class AuthController extends Controller
 {

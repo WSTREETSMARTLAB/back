@@ -2,7 +2,7 @@
 
 namespace App\Domain\Tool\Processes;
 
-use App\Repositories\ToolRepository;
+use App\Domain\Tool\Repositories\ToolRepository;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 

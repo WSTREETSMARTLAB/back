@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Domain\User\Processes\DeleteAccountProcess;
 use App\Domain\User\Processes\FetchAuthenticatedUserProcess;
 use App\Domain\User\Processes\UpdateAccountProcess;
-use App\Enums\ResponseMessage;
 use App\Http\Requests\User\UpdateAccountPreferencesRequest;
 use App\Http\Responses\HttpResponse;
+use App\System\Enums\ResponseMessage;
 
 class UserController extends Controller
 {

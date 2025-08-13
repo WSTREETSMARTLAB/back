@@ -2,8 +2,8 @@
 
 namespace App\Domain\Profile\Processes;
 
-use App\Actions\User\SendEmailVerificationCodeAction;
-use App\Repositories\UserRepository;
+use App\Domain\User\Actions\SendEmailVerificationCodeAction;
+use App\Domain\User\Repositories\UserRepository;
 
 class ResendProcess
 {

@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\System\Abstract\Repository;
+
 class AlarmRepository extends Repository
 {
     public function registerAlarmStart(int $toolId, array $payload): int

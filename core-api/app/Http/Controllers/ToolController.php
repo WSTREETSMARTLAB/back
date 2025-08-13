@@ -8,13 +8,13 @@ use App\Domain\Tool\Processes\GetToolPreferencesProcess;
 use App\Domain\Tool\Processes\GetToolSettingsProcess;
 use App\Domain\Tool\Processes\RegisterToolProcess;
 use App\Domain\Tool\Processes\SetToolSettingsProcess;
-use App\Enums\ResponseMessage;
 use App\Http\Processes\Tool\ResolveUserToolProcess;
 use App\Http\Requests\Tool\AuthorizeToolRequest;
 use App\Http\Requests\Tool\MyToolsRequest;
 use App\Http\Requests\Tool\RegisterToolRequest;
 use App\Http\Requests\Tool\ToolSettingsRequest;
 use App\Http\Responses\HttpResponse;
+use App\System\Enums\ResponseMessage;
 
 class ToolController extends Controller
 {

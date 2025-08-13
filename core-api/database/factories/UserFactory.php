@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Domain\Company\Models\Company;
-use App\Enums\Role;
+use App\System\Enums\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;

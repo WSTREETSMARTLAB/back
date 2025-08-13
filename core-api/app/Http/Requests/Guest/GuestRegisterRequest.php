@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Guest;
 
+use App\Domain\Guest\DTO\GuestDTO;
+use App\Domain\Office\Specialist\Events\DataTransferObject\EventCallbackDataTransferObject;
 use App\Http\Requests\BaseFormRequest;
 
 class GuestRegisterRequest extends BaseFormRequest
@@ -23,5 +25,10 @@ class GuestRegisterRequest extends BaseFormRequest
             'method'          => ['nullable', 'string', 'max:10', 'in:GET,POST,PUT,PATCH,DELETE,OPTIONS,HEAD'],
             'query'           => ['nullable', 'string', 'max:2048'],
         ];
+    }
+
+    public function getValidatedData(): GuestDTO
+    {
+        return new GuestDTO($this->validated());
     }
 }

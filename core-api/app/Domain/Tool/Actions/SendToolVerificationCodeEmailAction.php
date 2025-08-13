@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Actions\Tool;
+namespace App\Domain\Tool\Actions;
 
-use App\Mail\EmailVerificationCodeMail;
 use App\Mail\ToolVerificationCodeMail;
 use Illuminate\Support\Facades\Mail;
 

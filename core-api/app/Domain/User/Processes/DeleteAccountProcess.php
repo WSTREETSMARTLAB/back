@@ -2,7 +2,7 @@
 
 namespace App\Domain\User\Processes;
 
-use App\Repositories\UserRepository;
+use App\Domain\User\Repositories\UserRepository;
 
 class DeleteAccountProcess
 {

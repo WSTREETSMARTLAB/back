@@ -2,8 +2,8 @@
 
 namespace App\Domain\Alarm\Processes;
 
-use App\Repositories\AlarmRepository;
-use App\Repositories\ToolRepository;
+use App\Domain\Alarm\Repositories\AlarmRepository;
+use App\Domain\Tool\Repositories\ToolRepository;
 use Illuminate\Auth\Access\AuthorizationException;
 
 class DeleteAlarmsProcess

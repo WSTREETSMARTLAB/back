@@ -2,7 +2,7 @@
 
 namespace App\Domain\Profile\Processes;
 
-use App\Repositories\UserRepository;
+use App\Domain\User\Repositories\UserRepository;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 

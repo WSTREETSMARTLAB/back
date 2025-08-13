@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Enums;
+namespace App\System\Enums;
 
-use App\Traits\BaseEnum;
+use App\System\Traits\BaseEnum;
 
 enum ResponseMessage: string
 {

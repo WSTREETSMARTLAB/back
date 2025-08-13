@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Domain\Tool\Repositories;
 
 use App\Domain\Tool\Models\Tool;
+use App\System\Abstract\Repository;
 use Illuminate\Support\Collection;
 
 class ToolRepository extends Repository

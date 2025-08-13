@@ -3,7 +3,7 @@
 namespace App\Domain\User\Processes;
 
 use App\Domain\User\DTO\UserDTO;
-use App\Repositories\UserRepository;
+use App\Domain\User\Repositories\UserRepository;
 
 class FetchAuthenticatedUserProcess
 {

@@ -2,8 +2,8 @@
 
 namespace App\Domain\Tool\Processes;
 
-use App\Actions\Tool\SendToolVerificationCodeEmailAction;
-use App\Repositories\ToolRepository;
+use App\Domain\Tool\Actions\SendToolVerificationCodeEmailAction;
+use App\Domain\Tool\Repositories\ToolRepository;
 
 class RegisterToolProcess
 {

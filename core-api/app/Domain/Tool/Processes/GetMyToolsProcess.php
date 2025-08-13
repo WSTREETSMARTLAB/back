@@ -4,7 +4,7 @@ namespace App\Domain\Tool\Processes;
 
 use App\Domain\Tool\DTO\ToolDTO;
 use App\Domain\Tool\Models\Tool;
-use App\Repositories\ToolRepository;
+use App\Domain\Tool\Repositories\ToolRepository;
 use Illuminate\Support\Collection;
 
 class GetMyToolsProcess

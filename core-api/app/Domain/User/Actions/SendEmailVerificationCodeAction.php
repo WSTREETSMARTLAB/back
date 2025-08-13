@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\User;
+namespace App\Domain\User\Actions;
 
 use App\Domain\User\Models\User;
 use App\Mail\EmailVerificationCodeMail;

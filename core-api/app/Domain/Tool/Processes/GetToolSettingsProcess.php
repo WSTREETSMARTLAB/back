@@ -3,7 +3,7 @@
 namespace App\Domain\Tool\Processes;
 
 use App\Domain\Tool\DTO\ToolSettingsDTO;
-use App\Repositories\ToolRepository;
+use App\Domain\Tool\Repositories\ToolRepository;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class GetToolSettingsProcess

@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Core\DependencyAccessor;
-use App\Repositories\ToolRepository;
+use App\Domain\Tool\Repositories\ToolRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 

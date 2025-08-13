@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Domain\Alarm\Processes\DeleteAlarmsProcess;
 use App\Domain\Alarm\Processes\GetAlarmListProcess;
-use App\Enums\ResponseMessage;
 use App\Http\Requests\Tool\DeleteAlarmsRequest;
 use App\Http\Responses\HttpResponse;
+use App\System\Enums\ResponseMessage;
 use Illuminate\Http\Response;
 
 class AlarmController extends Controller

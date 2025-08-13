@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Domain\Alarm\Repositories;
 
 use App\Domain\Alarm\Models\Alarm;
+use App\System\Abstract\Repository;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class AlarmRepository extends Repository
