@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\User\Processes\DeleteAccountProcess;
+use App\Domain\User\Processes\FetchAuthenticatedUserProcess;
+use App\Domain\User\Processes\UpdateAccountProcess;
 use App\Enums\ResponseMessage;
-use App\Http\Processes\User\DeleteAccountProcess;
-use App\Http\Processes\User\FetchAuthenticatedUserProcess;
-use App\Http\Processes\User\UpdateAccountProcess;
 use App\Http\Requests\User\UpdateAccountPreferencesRequest;
 use App\Http\Responses\HttpResponse;
 

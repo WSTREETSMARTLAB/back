@@ -2,8 +2,8 @@
 
 namespace App\Actions\User;
 
+use App\Domain\User\Models\User;
 use App\Mail\EmailVerificationCodeMail;
-use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 
 class SendEmailVerificationCodeAction

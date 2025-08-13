@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Company;
+use App\Domain\Company\Models\Company;
 
 class CompanyRepository extends Repository
 {

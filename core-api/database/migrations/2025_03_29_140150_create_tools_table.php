@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tools', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('type', \App\Enums\ToolType::values());
+            $table->enum('type', \App\Domain\Tool\Enums\ToolType::values());
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('company_id')->nullable()->constrained()->onDelete('set null');
             $table->boolean('active')->default(false);

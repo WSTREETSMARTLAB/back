@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Tool;
+use App\Domain\Tool\Models\Tool;
 use Illuminate\Support\Collection;
 
 class ToolRepository extends Repository

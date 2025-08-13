@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Alarm;
+use App\Domain\Alarm\Models\Alarm;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class AlarmRepository extends Repository

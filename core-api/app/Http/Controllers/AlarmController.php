@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\Alarm\Processes\DeleteAlarmsProcess;
+use App\Domain\Alarm\Processes\GetAlarmListProcess;
 use App\Enums\ResponseMessage;
-use App\Http\Processes\Alarm\DeleteAlarmsProcess;
-use App\Http\Processes\Alarm\GetAlarmListProcess;
 use App\Http\Requests\Tool\DeleteAlarmsRequest;
 use App\Http\Responses\HttpResponse;
 use Illuminate\Http\Response;

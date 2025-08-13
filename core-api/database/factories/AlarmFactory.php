@@ -2,12 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\Alarm;
-use App\Models\Tool;
+use App\Domain\Alarm\Models\Alarm;
+use App\Domain\Tool\Models\Tool;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Alarm>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Domain\Alarm\Models\Alarm>
  */
 class AlarmFactory extends Factory
 {
@@ -20,7 +20,7 @@ class AlarmFactory extends Factory
      */
     public function definition(): array
     {
-        $type = $this->faker->randomElement(\App\Enums\Alarm::cases());
+        $type = $this->faker->randomElement(\App\Domain\Alarm\Enums\Alarm::cases());
 
         return [
             'type' => $type->value,
