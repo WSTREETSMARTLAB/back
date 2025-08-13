@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ResponseMessage;
 use App\Http\Processes\Alarm\DeleteAlarmsProcess;
 use App\Http\Processes\Alarm\GetAlarmListProcess;
 use App\Http\Requests\Tool\DeleteAlarmsRequest;
+use App\Http\Responses\HttpResponse;
 use Illuminate\Http\Response;
 
 class AlarmController extends Controller
@@ -17,6 +19,10 @@ class AlarmController extends Controller
 
         $data = $process->handle($toolId, $userId, $perPage);
 
+//        return new HttpResponse(
+//            $data, use resource class
+//        );
+
         return response()->json([
             'data' => $data
         ], Response::HTTP_OK);
@@ -28,10 +34,11 @@ class AlarmController extends Controller
 
         $requestData = $request->validated();
 
-        $data = $process->handle($toolId, $userId, $requestData['ids']);
+        $process->handle($toolId, $userId, $requestData['ids']);
 
-        return response()->json([
-            'message' =>  "$data alarms deleted"
-        ], Response::HTTP_OK);
+        return new HttpResponse(
+            [],
+            ResponseMessage::DELETE_SUCCESS->value
+        );
     }
 }

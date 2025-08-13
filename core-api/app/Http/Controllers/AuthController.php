@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ResponseMessage;
 use App\Http\Processes\Auth\LoginProcess;
 use App\Http\Processes\Auth\LogoutProcess;
 use App\Http\Processes\Auth\RegisterProcess;
@@ -11,63 +12,63 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Auth\ResendRequest;
 use App\Http\Requests\Auth\VerificationRequest;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
+use App\Http\Responses\HttpResponse;
 
 class AuthController extends Controller
 {
-    public function register(RegisterRequest $request, RegisterProcess $process): JsonResponse
+    public function register(RegisterRequest $request, RegisterProcess $process): HttpResponse
     {
         $requestData = $request->validated();
         $process->handle($requestData);
 
-        return response()->json([
-            'message' => 'Verification code sent to email',
-        ], Response::HTTP_OK);
+        return new HttpResponse(
+            [],
+            ResponseMessage::CODE_SENT_TO_EMAIL->value
+        );
     }
 
-    public function verify(VerificationRequest $request, VerificationProcess $process): JsonResponse
+    public function verify(VerificationRequest $request, VerificationProcess $process): HttpResponse
     {
         $requestData = $request->validated();
         $response = $process->handle($requestData);
 
-        return response()->json([
-            'message' => 'Verification successful',
-            'data' => $response
-        ], Response::HTTP_OK);
+        return new HttpResponse(
+            $response,
+            ResponseMessage::VERIFICATION_SUCCESS->value
+        );
     }
 
-    public function resend(ResendRequest $request, ResendProcess $process): JsonResponse
+    public function resend(ResendRequest $request, ResendProcess $process): HttpResponse
     {
         $requestData = $request->validated();
         $process->handle($requestData);
 
-        return response()->json([
-            'message' => 'Verification code sent to email',
-        ], Response::HTTP_OK);
+        return new HttpResponse(
+            [],
+            ResponseMessage::CODE_SENT_TO_EMAIL->value
+        );
     }
 
-    public function login(LoginRequest $request, LoginProcess $process): JsonResponse
+    public function login(LoginRequest $request, LoginProcess $process): HttpResponse
     {
         $requestData = $request->validated();
         $response = $process->handle($requestData);
 
-        return response()->json([
-            'message' => 'Login successful',
-            'data' => [
-                'auth_token' => $response
-            ]
-        ], Response::HTTP_OK);
+        return new HttpResponse(
+            ['auth_token' => $response],
+            ResponseMessage::LOGIN_SUCCESS->value
+        );
     }
 
-    public function logout(LogoutProcess $process): JsonResponse
+    public function logout(LogoutProcess $process): HttpResponse
     {
         $user = auth()->user();
 
         $process->handle($user);
 
-        return response()->json([
-            'message' => 'Logout successful',
-        ], Response::HTTP_OK);
+        return new HttpResponse(
+            [],
+            ResponseMessage::LOGOUT_SUCCESS->value
+        );
     }
 }

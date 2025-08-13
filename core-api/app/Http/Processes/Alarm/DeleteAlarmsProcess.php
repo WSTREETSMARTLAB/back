@@ -12,14 +12,12 @@ class DeleteAlarmsProcess
     {
     }
 
-    public function handle(int $toolId, int $userId, array $alarmIds)
+    public function handle(int $toolId, int $userId, array $alarmIds): void
     {
         if (!$this->toolRepository->userIsOwner($toolId, $userId)) {
             throw new AuthorizationException("User is not owner of tool id:$toolId"); // todo move to middleware
         }
 
-        $data = $this->alarmRepository->deleteAlarms($toolId, $alarmIds);
-
-        return $data;
+        $this->alarmRepository->deleteAlarms($toolId, $alarmIds);
     }
 }

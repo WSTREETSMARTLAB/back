@@ -2,42 +2,44 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ResponseMessage;
 use App\Http\Processes\User\DeleteAccountProcess;
 use App\Http\Processes\User\FetchAuthenticatedUserProcess;
 use App\Http\Processes\User\UpdateAccountProcess;
 use App\Http\Requests\User\UpdateAccountPreferencesRequest;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
+use App\Http\Responses\HttpResponse;
 
 class UserController extends Controller
 {
-    public function showMe(FetchAuthenticatedUserProcess $process): JsonResponse
+    public function showMe(FetchAuthenticatedUserProcess $process): HttpResponse
     {
         $response = $process->handle(auth()->id());
 
-        return response()->json([
-            'data' => $response->toArray()
-        ], Response::HTTP_OK);
+        return new HttpResponse(
+            $response->toArray(),
+        );
     }
 
-    public function updateMyAccount(UpdateAccountPreferencesRequest $request, UpdateAccountProcess $process): JsonResponse
+    public function updateMyAccount(UpdateAccountPreferencesRequest $request, UpdateAccountProcess $process): HttpResponse
     {
         $requestData = $request->validated();
 
         $response = $process->handle(auth()->id(), $requestData);
 
-        return response()->json([
-            'data' => $response->toArray()
-        ], Response::HTTP_OK);
+        return new HttpResponse(
+            $response->toArray(),
+            ResponseMessage::UPDATE_SUCCESS->value
+        );
     }
 
-    public function deleteMyAccount(DeleteAccountProcess $process): JsonResponse
+    public function deleteMyAccount(DeleteAccountProcess $process): HttpResponse
     {
         $id = auth()->id();
-        $response = $process->handle($id);
+        $process->handle($id);
 
-        return response()->json([
-            'data' => $response ? "Account {$id} deleted" : "Account {$id} delete error"
-        ], Response::HTTP_OK);
+        return new HttpResponse(
+            [],
+            ResponseMessage::DELETE_SUCCESS->value
+        );
     }
 }

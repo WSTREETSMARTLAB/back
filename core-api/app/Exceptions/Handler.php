@@ -2,12 +2,19 @@
 
 namespace App\Exceptions;
 
+use App\Enums\ResponseMessage;
+use App\Http\Responses\HttpResponse;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
@@ -22,6 +29,45 @@ class Handler extends ExceptionHandler
         'current_password',
         'password',
         'password_confirmation',
+    ];
+
+    private $errors = [
+        NotFoundHttpException::class => [
+            'message' => ResponseMessage::HTTP_NOT_FOUND->value,
+            'code' => Response::HTTP_NOT_FOUND
+        ],
+        AuthenticationException::class => [
+            'message' => ResponseMessage::UNAUTHORIZED->value,
+            'code' => Response::HTTP_UNAUTHORIZED
+        ],
+        AuthorizationException::class => [
+            'message' => ResponseMessage::FORBIDDEN->value,
+            'code' => Response::HTTP_FORBIDDEN,
+        ],
+        AccessDeniedHttpException::class => [
+            'message' => ResponseMessage::FORBIDDEN->value,
+            'code' => Response::HTTP_FORBIDDEN
+        ],
+        ValidationException::class => [
+            'message' => ResponseMessage::VALIDATION_ERROR->value,
+            'code' => Response::HTTP_UNPROCESSABLE_ENTITY
+        ],
+        ModelNotFoundException::class => [
+            'message' => ResponseMessage::NOT_FOUND->value,
+            'code' => Response::HTTP_NOT_FOUND,
+        ],
+        MethodNotAllowedHttpException::class => [
+            'message' => ResponseMessage::METHOD_NOT_ALLOWED->value,
+            'code' => Response::HTTP_METHOD_NOT_ALLOWED,
+        ],
+        ThrottleRequestsException::class => [
+            'message' => ResponseMessage::TOO_MANY_REQUESTS->value,
+            'code' => Response::HTTP_TOO_MANY_REQUESTS,
+        ],
+        QueryException::class => [
+            'message' => ResponseMessage::QUERY_EXCEPTION->value,
+            'code' => Response::HTTP_INTERNAL_SERVER_ERROR,
+        ],
     ];
 
     /**
@@ -39,32 +85,33 @@ class Handler extends ExceptionHandler
     /**
      * Handle API exceptions and return JSON response.
      */
-    private function handleApiException(Throwable $exception): JsonResponse
+    private function handleApiException(Throwable $exception): HttpResponse
     {
-        if ($exception instanceof NotFoundHttpException) {
-            return response()->json([
-                'message' => 'Route not found',
-                'error' => $exception->getMessage(),
-            ], Response::HTTP_NOT_FOUND);
+        $payload = [
+            'error' => $exception instanceof ValidationException ? $exception->errors() : $exception->getMessage(),
+            'message' => ResponseMessage::SERVER_ERROR->value,
+            'code' => Response::HTTP_INTERNAL_SERVER_ERROR
+        ];
+
+        foreach ($this->errors as $index => $error) {
+            if ($exception instanceof $index) {
+                $payload['message'] = $error['message'];
+                $payload['code'] = $error['code'];
+                break;
+            }
         }
 
-        if ($exception instanceof AuthenticationException) {
-            return response()->json([
-                'message' => 'Unauthorized',
-                'error' => $exception->getMessage(),
-            ], Response::HTTP_UNAUTHORIZED);
+        if ((app()->isProduction()) && ($exception instanceof QueryException)) {
+            $payload['error'] = ResponseMessage::SERVER_ERROR->value;
         }
 
-        if ($exception instanceof AccessDeniedHttpException) {
-            return response()->json([
-                'message' => 'Forbidden',
-                'error' => $exception->getMessage(),
-            ], Response::HTTP_FORBIDDEN);
-        }
-
-        return response()->json([
-            'message' => 'Something went wrong',
-            'error' => $exception->getMessage(),
-        ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        return new HttpResponse(
+            [
+                'error' => $payload['error']
+            ],
+            $payload['message'],
+            false,
+            $payload['code']
+        );
     }
 }
