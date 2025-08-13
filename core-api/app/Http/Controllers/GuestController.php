@@ -13,10 +13,12 @@ class GuestController extends Controller
     {
         $requestData = $request->getValidatedData();
 
-        $process->handle($requestData);
+        $token = $process->handle($requestData);
 
         return new HttpResponse(
-            [],
+            [
+                'token' => $token,
+            ],
             ResponseMessage::REGISTER_SUCCESS->value
         );
     }
