@@ -18,6 +18,6 @@ class GuestRouter implements RouteRegistrar
 
     public function routes(): void
     {
-        Route::post('/register', [GuestController::class, 'registerGuest']);
+        Route::post('/', [GuestController::class, 'registerGuest']);
     }
 }

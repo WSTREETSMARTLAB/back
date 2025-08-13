@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Http\Routes\RouteRegistrar;
 use App\Http\Routes\V1\AuthRouter;
+use App\Http\Routes\V1\GuestRouter;
 use App\Http\Routes\V1\SystemRouter;
 use App\Http\Routes\V1\ToolRouter;
 use App\Http\Routes\V1\UserRouter;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 class RouteServiceProvider extends ServiceProvider
 {
     protected array $routers = [
+        GuestRouter::class,
         AuthRouter::class,
         UserRouter::class,
         ToolRouter::class,
