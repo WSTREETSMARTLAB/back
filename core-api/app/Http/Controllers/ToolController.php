@@ -15,18 +15,16 @@ use App\Http\Requests\Tool\MyToolsRequest;
 use App\Http\Requests\Tool\RegisterToolRequest;
 use App\Http\Requests\Tool\ToolSettingsRequest;
 use App\Http\Responses\HttpResponse;
-use Illuminate\Http\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ToolController extends Controller
 {
-    public function myTools(GetMyToolsProcess $process): JsonResponse
+    public function myTools(GetMyToolsProcess $process): HttpResponse
     {
         $response = $process->handle(auth()->id());
 
-        return response()->json([
-            'data' => $response, // use resource class
-        ], Response::HTTP_OK);
+        return new HttpResponse(
+            $response->toArray() // TODO use resource class
+        );
     }
 
     public function registerTool(RegisterToolRequest $request, RegisterToolProcess $process): HttpResponse
@@ -56,28 +54,28 @@ class ToolController extends Controller
         );
     }
 
-    public function getPreferences(int $id, GetToolPreferencesProcess $process): JsonResponse
+    public function getPreferences(int $id, GetToolPreferencesProcess $process): HttpResponse
     {
         $userId = auth()->user()->id;
 
         $response = $process->handle($userId, $id);
 
-        return response()->json([
-            'data' => [
+        return new HttpResponse(
+            [
                 'preferences' => $response // use resource class
             ]
-        ], Response::HTTP_OK);
+        );
     }
 
-    public function getSettings(int $id, GetToolSettingsProcess $process): JsonResponse
+    public function getSettings(int $id, GetToolSettingsProcess $process): HttpResponse
     {
         $data = $process->handle($id, auth()->id());
 
-        return response()->json([
-            'data' => [
+        return new HttpResponse(
+            [
                 'settings' => $data->toArray() // use resource class
             ]
-        ], Response::HTTP_OK);
+        );
     }
 
     public function setSettings(int $id, ToolSettingsRequest $request, SetToolSettingsProcess $process): HttpResponse
