@@ -2,8 +2,10 @@
 
 namespace App\Domain\Guest\Models;
 
+use App\Domain\Profile\Models\Profile;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Sanctum\HasApiTokens;
 
 class Guest extends Model
@@ -21,4 +23,9 @@ class Guest extends Model
         'method',
         'query',
     ];
+
+    public function profiles(): HasMany
+    {
+        return $this->hasMany(Profile::class);
+    }
 }

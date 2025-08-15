@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('username')->unique();
-            $table->string('email')->unique();
-            $table->string('email_verification_code')->nullable();
-            $table->timestamp('email_verification_code_expires_at')->nullable();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+//            $table->string('email')->unique();
+//            $table->string('email_verification_code')->nullable();
+//            $table->timestamp('email_verification_code_expires_at')->nullable();
+//            $table->timestamp('email_verified_at')->nullable();
+//            $table->string('password');
             $table->string('location')->nullable();
             $table->string('phone')->nullable();
             $table->string('phone_verification_code')->nullable();
@@ -27,7 +27,7 @@ return new class extends Migration
             $table->timestamp('phone_verified_at')->nullable();
             $table->unsignedBigInteger('company_id')->nullable();
             $table->enum('role', ['admin', 'user'])->default('user');
-            $table->boolean('active')->default(false); // true after verification
+//            $table->boolean('active')->default(false); // true after verification
             $table->timestamp('last_login')->nullable();
             $table->string('avatar')->nullable();
             $table->text('bio')->nullable();
@@ -36,7 +36,7 @@ return new class extends Migration
             $table->string('facebook')->nullable();
             $table->string('twitter')->nullable();
             $table->string('linkedin')->nullable();
-            $table->json('settings')->nullable();
+//            $table->json('settings')->nullable();
             $table->enum('subscription_plan', ['free', 'basic', 'premium'])->default('free'); // free, basic, pro
             $table->timestamp('subscription_expires_at')->nullable();
             $table->rememberToken();

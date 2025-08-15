@@ -2,11 +2,11 @@
 
 namespace App\Domain\Company\Models;
 
+use App\Domain\Profile\Models\Profile;
 use App\Domain\Tool\Models\Tool;
 use App\Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Company extends Model
@@ -20,10 +20,10 @@ class Company extends Model
         'phone_verified_at',
         'tax_id',
         'activities',
-        'email',
-        'email_verified_at',
-        'active',
-        'owner_user_id',
+//        'email',
+//        'email_verified_at',
+//        'active',
+//        'owner_user_id',
         'logo',
         'description',
         'website',
@@ -35,21 +35,26 @@ class Company extends Model
     ];
 
     protected $casts = [
-        'email_verified_at' => 'datetime',
-        'phone_verified_at' => 'datetime',
-        'active' => 'boolean',
+//        'email_verified_at' => 'datetime',
+//        'phone_verified_at' => 'datetime',
+//        'active' => 'boolean',
         'activities' => 'array',
     ];
+
+    public function profile(): MorphOne
+    {
+        return $this->morphOne(Profile::class, 'owner');
+    }
 
     public function users(): HasMany
     {
         return $this->hasMany(User::class, 'company_id');
     }
 
-    public function owner(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'owner_user_id');
-    }
+//    public function owner(): BelongsTo
+//    {
+//        return $this->belongsTo(User::class, 'owner_user_id');
+//    }
 
     public function tools(): HasMany
     {
