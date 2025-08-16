@@ -41,6 +41,11 @@ class Profile extends Model
         'last_login' => 'datetime',
     ];
 
+    protected static function newFactory()
+    {
+        return \Database\Factories\ProfileFactory::new();
+    }
+
     public function owner(): MorphTo
     {
         return $this->morphTo();

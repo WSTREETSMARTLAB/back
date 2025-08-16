@@ -24,6 +24,11 @@ class Guest extends Model
         'query',
     ];
 
+    protected static function newFactory()
+    {
+        return \Database\Factories\GuestFactory::new();
+    }
+
     public function profiles(): HasMany
     {
         return $this->hasMany(Profile::class);

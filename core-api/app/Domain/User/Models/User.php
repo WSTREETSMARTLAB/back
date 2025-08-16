@@ -51,6 +51,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'subscription_expires_at' => 'datetime',
     ];
 
+    protected static function newFactory()
+    {
+        return \Database\Factories\ProfileFactory::new();
+    }
+
     public function profile(): MorphOne
     {
         return $this->morphOne(Profile::class, 'owner');

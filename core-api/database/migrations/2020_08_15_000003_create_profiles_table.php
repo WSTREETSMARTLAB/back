@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('password');
             $table->string('email_verification_code')->nullable();
             $table->timestamp('email_verification_code_expires_at')->nullable();
@@ -23,12 +23,11 @@ return new class extends Migration
             $table->morphs('owner');
             $table->foreignId('guest_id')
                 ->nullable()
-                ->constrained('profiles');
+                ->constrained('guests')
+                ->nullOnDelete();
 
             $table->timestamps();
             $table->softDeletes();
-
-            $table->unique(['email', 'owner_id', 'owner_type']);
         });
     }
 
