@@ -19,9 +19,6 @@ return new class extends Migration
             $table->timestamp('phone_verified_at')->nullable();
             $table->string('tax_id')->nullable();
             $table->json('activities')->nullable();
-            $table->string('email')->nullable();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->boolean('active')->default(false);
             $table->string('logo')->nullable();
             $table->text('description')->nullable();
             $table->string('website')->nullable();
@@ -30,7 +27,6 @@ return new class extends Migration
             $table->string('linkedin')->nullable();
             $table->string('twitter')->nullable();
             $table->json('settings')->nullable();
-            $table->unsignedBigInteger('owner_user_id')->constrained('users');
             $table->timestamps();
         });
     }
