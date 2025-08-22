@@ -3,7 +3,6 @@
 namespace App\Domain\Profile\Processes;
 
 use App\Domain\Company\Repositories\CompanyRepository;
-use App\Domain\Profile\Models\Profile;
 use App\Domain\Profile\Repositories\ProfileRepository;
 use App\Domain\User\Actions\SendEmailVerificationCodeAction;
 use App\Domain\User\Repositories\UserRepository;
