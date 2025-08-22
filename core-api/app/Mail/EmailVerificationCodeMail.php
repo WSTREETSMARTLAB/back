@@ -13,7 +13,7 @@ class EmailVerificationCodeMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(private string $code, private string $username)
+    public function __construct(private string $code)
     {
     }
 
@@ -23,7 +23,6 @@ class EmailVerificationCodeMail extends Mailable
             ->subject('Welcome to WSTREET SMART LAB')
             ->view('emails.email-verification-code')
             ->with([
-                'username' => $this->username,
                 'code' => $this->code,
             ]);
     }

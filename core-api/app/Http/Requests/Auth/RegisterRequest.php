@@ -14,21 +14,9 @@ class RegisterRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
+            'type' => 'required|string|in:user,company',
             'email' => 'required|string|email|unique:users,email',
             'password' => 'required|string',
-        ];
-    }
-
-
-    public function messages(): array
-    {
-        return [
-            'email.required' => 'Email is required.',
-            'email.email' => 'Invalid email format.',
-            'email.unique' => 'Email is already registered.',
-
-            'password.required' => 'Password is required.',
-            'password.min' => 'Password must be at least 6 characters.',
         ];
     }
 }

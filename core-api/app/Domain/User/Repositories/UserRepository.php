@@ -4,21 +4,21 @@ namespace App\Domain\User\Repositories;
 
 use App\Domain\User\Models\User;
 use App\System\Abstract\Repository;
+use Illuminate\Database\Eloquent\Model;
 
 class UserRepository extends Repository
 {
     protected string $model = User::class;
 
-    public function create(array $data): User
+    public function create(array $data): Model
     {
         return $this->query()->create([
-            'username' => $data['username'],
-            'email' => $data['email'],
-            'password' => $data['password'],
+            'name' => $data['name'],
+            'profile_id' => $data['profile_id']
         ]);
     }
 
-    public function getUserById(int $id): User
+    public function getUserById(int $id): Model
     {
         return $this->query()->where('id', $id)->firstOrFail();
     }
@@ -33,8 +33,7 @@ class UserRepository extends Repository
         $user = $this->getUserById($id);
 
         $user->update([
-            'username' => $data['username'],
-            'email' => $data['email'],
+            'name' => $data['username'],
             'avatar' => $data['avatar'] ?? null,
         ]);
 
