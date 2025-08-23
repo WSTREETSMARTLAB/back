@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email_verification_code')->nullable();
             $table->timestamp('email_verification_code_expires_at')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->boolean('active')->default(false); // true after verification
+            $table->boolean('active')->default(false);
             $table->timestamp('last_login')->nullable();
             $table->morphs('owner');
             $table->foreignId('guest_id')

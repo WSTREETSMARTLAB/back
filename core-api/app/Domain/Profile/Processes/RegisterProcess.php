@@ -3,6 +3,7 @@
 namespace App\Domain\Profile\Processes;
 
 use App\Domain\Company\Repositories\CompanyRepository;
+use App\Domain\Profile\Enums\ProfileType;
 use App\Domain\Profile\Repositories\ProfileRepository;
 use App\Domain\User\Actions\SendEmailVerificationCodeAction;
 use App\Domain\User\Repositories\UserRepository;
@@ -13,6 +14,8 @@ use Illuminate\Support\Str;
 
 class RegisterProcess
 {
+    private UserRepository|CompanyRepository $entityRepository;
+
     public function __construct(
         private ProfileRepository $profileRepository,
         private UserRepository $userRepository,
@@ -25,20 +28,10 @@ class RegisterProcess
     public function handle(array $data): void
     {
         DB::beginTransaction();
-
         try {
-            $profile = $this->createProfile($data['email'], $data['password']);
-
-            $entityData['name'] = $this->generateUniqueUsername();
-            $entityData['profile_id'] = $profile->id;
-
-            if ($data['type'] === 'user') {
-                $this->userRepository->create($entityData);
-            }
-
-            if ($data['type'] === 'company') {
-                $this->companyRepository->create($entityData);
-            }
+            $entity = $this->createEntity($data['type'])->id;
+            $data['owner_id'] = $entity->id;
+            $this->createProfile($data);
 
             DB::commit();
         } catch (\Throwable $exception) {
@@ -47,25 +40,39 @@ class RegisterProcess
         }
     }
 
-    private function createProfile(string $email, string $password): Model
+    private function createEntity(string $type): Model
     {
-        $password = Hash::make($password);
+        $this->entityRepository = app()->make(
+            $type === ProfileType::USER->value ? UserRepository::class : CompanyRepository::class
+        );
+
+        $entityData = [
+            'name' => $this->generateUniqueUsername(),
+        ];
+
+        return $this->entityRepository->create($entityData);
+    }
+
+    private function createProfile(array $data): void
+    {
+        $password = Hash::make($data['password']);
 
         $profile = $this->profileRepository->create([
-            'email' => $email,
-            'password' => $password
+            'email' => $data['email'],
+            'password' => $password,
+            'owner_id' => $data['owner_id'],
+            'owner_type' => $data['type'],
+            'active' => false
         ]);
 
         $this->sendEmailVerificationCodeAction->handle($profile);
-
-        return $profile;
     }
 
     private function generateUniqueUsername(): string
     {
         do {
-            $username = 'user_' . Str::random(6);
-        } while ($this->userRepository->usernameExists($username));
+            $username = '_' . Str::random(6);
+        } while ($this->entityRepository->usernameExists($username));
 
         return $username;
     }

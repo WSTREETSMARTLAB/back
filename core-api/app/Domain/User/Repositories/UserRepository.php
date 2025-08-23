@@ -14,7 +14,6 @@ class UserRepository extends Repository
     {
         return $this->query()->create([
             'name' => $data['name'],
-            'profile_id' => $data['profile_id']
         ]);
     }
 
@@ -25,7 +24,7 @@ class UserRepository extends Repository
 
     public function usernameExists(string $username): bool
     {
-        return $this->query()->where('username', $username)->exists();
+        return $this->query()->where('name', $username)->exists();
     }
 
     public function updatePreferences(int $id, array $data): User

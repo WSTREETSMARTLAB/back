@@ -17,4 +17,9 @@ class CompanyRepository extends Repository
             'profile_id' => $data['profile_id']
         ]);
     }
+
+    public function usernameExists(string $username): bool
+    {
+        return $this->query()->where('name', $username)->exists();
+    }
 }
