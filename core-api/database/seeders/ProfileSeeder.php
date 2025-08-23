@@ -15,7 +15,6 @@ class ProfileSeeder extends Seeder
      */
     public function run(): void
     {
-        // TODO fixme
         Profile::factory()
             ->count(5)
             ->forGuest()

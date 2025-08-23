@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Domain\Company\Models\Company;
+use App\Domain\Profile\Models\Profile;
+use App\Domain\Tool\Models\Tool;
 use App\Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -12,6 +14,7 @@ use Illuminate\Support\Str;
  */
 class ToolFactory extends Factory
 {
+    protected $model = Tool::class;
     /**
      * Define the model's default state.
      *
@@ -34,8 +37,7 @@ class ToolFactory extends Factory
         return [
             'type' => $this->faker->randomElement(['room-stat']),
             'name' => $this->faker->word,
-            'user_id' => User::factory(),
-            'company_id' => fn () => Company::query()->inRandomOrder()->first()?->id,
+            'profile_id' => Profile::factory(),
             'active' => $this->faker->boolean(70),
             'code' => strtoupper(
                 implode('-', [

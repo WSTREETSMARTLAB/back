@@ -54,7 +54,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected static function newFactory()
     {
-        return \Database\Factories\ProfileFactory::new();
+        return \Database\Factories\UserFactory::new();
     }
 
     public function profile(): MorphOne

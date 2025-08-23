@@ -32,6 +32,11 @@ class Company extends Model
         'activities' => 'array',
     ];
 
+    protected static function newFactory()
+    {
+        return \Database\Factories\CompanyFactory::new();
+    }
+
     public function profile(): MorphOne
     {
         return $this->morphOne(Profile::class, 'owner');

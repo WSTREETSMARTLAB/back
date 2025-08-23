@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Domain\Profile\Models\Profile;
 use App\Domain\Tool\Models\Tool;
 use App\Domain\User\Models\User;
 use Illuminate\Database\Seeder;
@@ -13,24 +14,14 @@ class ToolSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()
+        Profile::factory()
             ->count(5)
-            ->has(
-                Tool::factory()
-                    ->count(3)
-            )
+            ->forUser()
+            ->verified()
             ->create();
 
         Tool::factory()->count(5)->create([
-            'user_id' => User::inRandomOrder()->first()->id,
-            'company_id' => null,
-        ]);
-
-        $adminUser = User::query()->where('email', 'lab@wstreet.com')->first();
-
-        Tool::factory()->count(3)->create([
-            'user_id' => $adminUser->id,
-            'active' => true
+            'profile_id' => Profile::inRandomOrder()->first()->id,
         ]);
     }
 }

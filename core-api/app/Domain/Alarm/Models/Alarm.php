@@ -33,6 +33,11 @@ class Alarm extends Model
         'type' => \App\Domain\Alarm\Enums\Alarm::class,
     ];
 
+    protected static function newFactory()
+    {
+        return \Database\Factories\AlarmFactory::new();
+    }
+
     public function tool(): BelongsTo
     {
         return $this->belongsTo(Tool::class, 'tool_id');

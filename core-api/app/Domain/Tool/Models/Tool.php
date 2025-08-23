@@ -2,8 +2,7 @@
 
 namespace App\Domain\Tool\Models;
 
-use App\Domain\Company\Models\Company;
-use App\Domain\User\Models\User;
+use App\Domain\Profile\Models\Profile;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -14,8 +13,7 @@ class Tool extends Model
 
     protected $fillable = [
         'type',
-        'user_id',
-        'company_id',
+        'profile_id',
         'active',
         'code',
         'activated_at',
@@ -33,13 +31,18 @@ class Tool extends Model
         'settings' => 'array',
     ];
 
-    public function user(): BelongsTo
+    protected static function newFactory()
     {
-        return $this->belongsTo(User::class);
+        return \Database\Factories\ToolFactory::new();
     }
 
-    public function company(): BelongsTo
+    public function profile(): BelongsTo
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(
+            Profile::class,
+            'profile_id',
+            'id',
+            'profile'
+        );
     }
 }

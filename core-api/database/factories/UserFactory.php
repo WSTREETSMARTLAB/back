@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Domain\Company\Models\Company;
+use App\Domain\User\Models\User;
 use App\System\Enums\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -13,6 +14,8 @@ use Illuminate\Support\Str;
  */
 class UserFactory extends Factory
 {
+    protected $model = User::class;
+
     /**
      * The current password being used by the factory.
      */
@@ -26,35 +29,28 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'username' => fake()->unique()->userName(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verification_code' => (string) random_int(1000, 999999),
-            'email_verification_code_expires_at' => now()->addMinutes(10),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'location' => fake()->country(),
-            'phone' => fake()->phoneNumber(),
-            'phone_verification_code' => (string) random_int(1000, 999999),
-            'phone_verification_code_expires_at' => now()->addMinutes(10),
-            'phone_verified_at' => now(),
-            'company_id' => $this->faker->boolean(50) ? Company::factory() : null,
-            'role' => Role::User->value,
-            'active' => true,
-            'last_login' => now(),
-            'avatar' => fake()->imageUrl(),
-            'bio' => fake()->text(),
-            'website' => fake()->url(),
-            'telegram' => '@' . fake()->userName(),
-            'facebook' => fake()->url(),
-            'twitter' => fake()->url(),
-            'linkedin' => fake()->url(),
-            'settings' => json_encode([
-                'allow_public_profile' => $this->faker->boolean(),
-            ], JSON_THROW_ON_ERROR),
-            'subscription_plan' => $this->faker->randomElement(['free', 'basic', 'premium']),
-            'subscription_expires_at' => now()->addDays($this->faker->numberBetween(1, 365)),
-            'remember_token' => Str::random(10),
+            'name' => $this->faker->userName(),
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            'phone' => $this->faker->unique()->numerify('+38##########'),
+            'phone_verification_code' => str_pad((string)random_int(0, 999999), 6, '0', STR_PAD_LEFT),
+            'phone_verification_code_expires_at' => $this->faker->dateTimeBetween('now', '+1 hour'),
+            'phone_verified_at' => $this->faker->boolean(70) ? $this->faker->dateTimeBetween('-1 year', 'now') : null,
+            'country' => $this->faker->countryCode(),
+            'city' => $this->faker->city(),
+            'language' => $this->faker->languageCode(),
+            'address' => json_encode([
+                'street' => $this->faker->streetAddress(),
+                'zip' => $this->faker->postcode(),
+            ]),
+            'birth_date' => $this->faker->date(),
+            'gender' => $this->faker->randomElement(['male', 'female']),
+            'experience' => $this->faker->numberBetween(0, 40),
+            'avatar' => $this->faker->imageUrl(640, 640, 'people', true),
+            'about' => $this->faker->paragraph(),
+            'telegram' => '@' . $this->faker->userName(),
+            'instagram' => 'https://instagram.com/' . $this->faker->userName(),
+            'facebook' => 'https://facebook.com/' . $this->faker->userName(),
         ];
     }
 }

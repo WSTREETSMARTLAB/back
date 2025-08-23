@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Domain\Company\Models\Company;
 use App\Domain\Guest\Models\Guest;
 use App\Domain\Profile\Models\Profile;
 use App\Domain\User\Models\User;
@@ -29,9 +30,11 @@ class ProfileFactory extends Factory
         return [
             'email' => fake()->unique()->safeEmail(),
             'password' => static::$password ??= Hash::make('password'),
-            'email_verification_code' => (string) random_int(100000, 999999),
+            'email_verification_code' => str_pad((string) random_int(0, 999999), 6, '0', STR_PAD_LEFT),
             'email_verification_code_expires_at' => now()->addMinutes(10),
             'email_verified_at' => now(),
+            'owner_type' => User::class,
+            'owner_id' => User::factory(),
             'active' => true,
             'last_login' => now(),
             'guest_id' => null,
@@ -59,7 +62,7 @@ class ProfileFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
             'active' => false,
-            'email_verification_code' => (string) random_int(100000, 999999),
+            'email_verification_code' => str_pad((string) random_int(0, 999999), 6, '0', STR_PAD_LEFT),
             'email_verification_code_expires_at' => now()->addMinutes(10),
         ]);
     }
@@ -72,7 +75,7 @@ class ProfileFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
             'active' => false,
-            'email_verification_code' => (string) random_int(100000, 999999),
+            'email_verification_code' => str_pad((string) random_int(0, 999999), 6, '0', STR_PAD_LEFT),
             'email_verification_code_expires_at' => now()->subMinutes(5),
         ]);
     }
@@ -95,6 +98,14 @@ class ProfileFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'owner_type' => User::class,
             'owner_id' => User::factory(),
+        ]);
+    }
+
+    public function forCompany(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'owner_type' => Company::class,
+            'owner_id' => Company::factory(),
         ]);
     }
 
